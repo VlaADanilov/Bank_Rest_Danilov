@@ -1,8 +1,66 @@
-#
-# application.yml — главный конфигурационный файл Spring Boot.
-
-Что нужно сделать:
-  - Указать настройки подключения к базе данных.
-  - Указать порт приложения.
-  - Настроить параметры безопасности и JWT.
-  - Включить Swagger UI.
+app:
+  security:
+#    В миллисекундах
+    expiration: 6000000
+    private-key: "-----BEGIN PRIVATE KEY-----
+  MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC6ivr6MguCT9Fz
+  4d4lsISr0jsGyLd4aAGJJ+HjWx0TQy0JSb/pg6Yf3ouvUEzS2sUG9QpMojGNHLH5
+  hS5HbdPv77CYzPP/7Qi75xaMt9ls4YO7J84gWuPDT3WzJlkd1rFhanPVR4TzVB8t
+  VacYggz2w78YMpbCBJINR9+Md/Z62OBgKPuRic/3pKgokm43ga/JplO0XMprsNZx
+  J9V8GRcj1idzIsSqFAZ2YxzNHEm8krcll8vzVsU5Cwf4fA/WvOVlXF65eu8zhUMd
+  iKQH025/mvDsOuGmQK3S/CBiTn8zsD2oqgVAi1z2TYS7UYdrrGknrW7T6EVLOPF4
+  bU+NpxjFAgMBAAECggEAVNYSECkkXM5KFmaZbhCaNb41g/9SmVrLoAHYVFrCnVkG
+  qVu2ANAThBjk9AUT+yztQB2+4l09JczwD+eGxYtoQI2Eheln6nN1bmdJNRQDuOXS
+  0BHpR4OuY8vGXoRJMS3Lm98a8NtG1pbiWu7CQH4cwTkCtlGDiJcliQ6v1yVTnkgu
+  hQDKN9j4gBiZBWCTXVViwewWyR/b9k+i/+KyChq3+BLzgXsoMuuRhmqBe2czunRR
+  Wg9TfrAxgh+8hO+ZY0Wd2eRbA9simBGmyZiDL37c+0s1om5/BFfIGuc3Xt6OwWHn
+  KQcPo+fi1bs9UUhP0gBkc570+1BOI7Xn6kOCZyTTwQKBgQDpl1c6yT9MpFUAIUSX
+  7CH9EGpyUTI5fsTQLoUVHGMqO9TTjhw51zbbNsG34ILuEhyCeHvWIHiLz8pTwSKw
+  FPOMeqCUowSZRMu3tzJg9k6tWXAHhbEwsdwhqE8H3WkNDM2325c2LF2SATlLIOFK
+  fb7dNiWtHAKUzMninEf2DC4y8QKBgQDMcDPJsUU+riY4osnd57urjImHaf9p1bEV
+  PD1MAnXOgtEjNSGIPNj9o+Zq6WF+NuTnkWungfGS7upKnYHyTDw1itnX+7J26/cu
+  fRh9mEyexh849Nm/OP8C3PEEOxTlSkZvjBGb+T0eO4kHU5BX6fMFzD3BgofBI7ko
+  884uW1WbFQKBgGB7Jwdb6i5Aze8AzrElUiCRcDYJfYIr7yTBoixHDlp6XfyHfPcT
+  AlBm/HpzXADzMB1foF6gCMpOqBYR9r7d2H6Ug9EAyDx6It6d50wPUA3fnBsvSDGB
+  tRedyg7Ij8RZHnsrUviIOJm+sahrS0KWT4hU/hjTMem98EEOJdblzwsxAoGBAIxt
+  chVUEEV66EQ1BcbIu++djIaYt9oh8A6vH0fL1NIyp6ewgkULzt2DLO45Oz+wQ1IR
+  YMpiBucv932jbbRay2zX4MVsXe00LskfIqh66f6SBrZf8gZZB0oXK/MFBlhtya4r
+  n5js/h97M6f1rYvF5qoP3kfC+q8fc7t+pRzQnh/1AoGAQ+AOGc7cd9Sjnb1LtJn7
+  brHPQq+nWldzRnyGLwaJH2upgvL3EKMxjxXuUgkxDhuWwttQpm8vDep7nUCWkXhf
+  S7ZAmAKJv9V7mE9LlYHMJ1E7UycD9ywsiezv7V3AVVFyoZci8e7Q1Ha5a8gVAEGM
+  prVVzw7qepwtqybhiWRjddE=
+  -----END PRIVATE KEY-----"
+    public-key: "-----BEGIN PRIVATE KEY-----
+MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC6ivr6MguCT9Fz
+4d4lsISr0jsGyLd4aAGJJ+HjWx0TQy0JSb/pg6Yf3ouvUEzS2sUG9QpMojGNHLH5
+hS5HbdPv77CYzPP/7Qi75xaMt9ls4YO7J84gWuPDT3WzJlkd1rFhanPVR4TzVB8t
+VacYggz2w78YMpbCBJINR9+Md/Z62OBgKPuRic/3pKgokm43ga/JplO0XMprsNZx
+J9V8GRcj1idzIsSqFAZ2YxzNHEm8krcll8vzVsU5Cwf4fA/WvOVlXF65eu8zhUMd
+iKQH025/mvDsOuGmQK3S/CBiTn8zsD2oqgVAi1z2TYS7UYdrrGknrW7T6EVLOPF4
+bU+NpxjFAgMBAAECggEAVNYSECkkXM5KFmaZbhCaNb41g/9SmVrLoAHYVFrCnVkG
+qVu2ANAThBjk9AUT+yztQB2+4l09JczwD+eGxYtoQI2Eheln6nN1bmdJNRQDuOXS
+0BHpR4OuY8vGXoRJMS3Lm98a8NtG1pbiWu7CQH4cwTkCtlGDiJcliQ6v1yVTnkgu
+hQDKN9j4gBiZBWCTXVViwewWyR/b9k+i/+KyChq3+BLzgXsoMuuRhmqBe2czunRR
+Wg9TfrAxgh+8hO+ZY0Wd2eRbA9simBGmyZiDL37c+0s1om5/BFfIGuc3Xt6OwWHn
+KQcPo+fi1bs9UUhP0gBkc570+1BOI7Xn6kOCZyTTwQKBgQDpl1c6yT9MpFUAIUSX
+7CH9EGpyUTI5fsTQLoUVHGMqO9TTjhw51zbbNsG34ILuEhyCeHvWIHiLz8pTwSKw
+FPOMeqCUowSZRMu3tzJg9k6tWXAHhbEwsdwhqE8H3WkNDM2325c2LF2SATlLIOFK
+fb7dNiWtHAKUzMninEf2DC4y8QKBgQDMcDPJsUU+riY4osnd57urjImHaf9p1bEV
+PD1MAnXOgtEjNSGIPNj9o+Zq6WF+NuTnkWungfGS7upKnYHyTDw1itnX+7J26/cu
+fRh9mEyexh849Nm/OP8C3PEEOxTlSkZvjBGb+T0eO4kHU5BX6fMFzD3BgofBI7ko
+884uW1WbFQKBgGB7Jwdb6i5Aze8AzrElUiCRcDYJfYIr7yTBoixHDlp6XfyHfPcT
+AlBm/HpzXADzMB1foF6gCMpOqBYR9r7d2H6Ug9EAyDx6It6d50wPUA3fnBsvSDGB
+tRedyg7Ij8RZHnsrUviIOJm+sahrS0KWT4hU/hjTMem98EEOJdblzwsxAoGBAIxt
+chVUEEV66EQ1BcbIu++djIaYt9oh8A6vH0fL1NIyp6ewgkULzt2DLO45Oz+wQ1IR
+YMpiBucv932jbbRay2zX4MVsXe00LskfIqh66f6SBrZf8gZZB0oXK/MFBlhtya4r
+n5js/h97M6f1rYvF5qoP3kfC+q8fc7t+pRzQnh/1AoGAQ+AOGc7cd9Sjnb1LtJn7
+brHPQq+nWldzRnyGLwaJH2upgvL3EKMxjxXuUgkxDhuWwttQpm8vDep7nUCWkXhf
+S7ZAmAKJv9V7mE9LlYHMJ1E7UycD9ywsiezv7V3AVVFyoZci8e7Q1Ha5a8gVAEGM
+prVVzw7qepwtqybhiWRjddE=
+-----END PRIVATE KEY-----
+"
+#Что нужно сделать:
+#  - Указать настройки подключения к базе данных.
+#  - Указать порт приложения.
+#  - Настроить параметры безопасности и JWT.
+#  - Включить Swagger UI.

@@ -1,9 +1,13 @@
 package com.example.bankcards.controller.api;
 
+import com.example.bankcards.dto.request.LoginRequestDto;
+import com.example.bankcards.dto.request.UserFilterRequestDto;
 import com.example.bankcards.dto.request.UserRequestDto;
+import com.example.bankcards.dto.response.JwtResponseDto;
 import com.example.bankcards.dto.response.UserResponseDto;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -13,7 +17,8 @@ public interface UserApi {
     @GetMapping()
     Page<UserResponseDto> getUsers(
             @Min(0) @RequestParam(defaultValue = "0") int page,
-            @Min(1) @RequestParam(defaultValue = "1") int size
+            @Min(1) @RequestParam(defaultValue = "1") int size,
+            UserFilterRequestDto filter
     );
 
     @DeleteMapping("/{id}")
@@ -21,4 +26,9 @@ public interface UserApi {
 
     @PostMapping
     UUID createUser(UserRequestDto requestDto);
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    JwtResponseDto login(@RequestBody
+                         LoginRequestDto loginRequestDto);
 }

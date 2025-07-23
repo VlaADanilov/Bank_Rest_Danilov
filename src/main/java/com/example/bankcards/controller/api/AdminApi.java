@@ -1,14 +1,13 @@
 package com.example.bankcards.controller.api;
 
+import com.example.bankcards.dto.request.CardFilterRequestDto;
 import com.example.bankcards.dto.request.CardRequestDto;
-import com.example.bankcards.dto.response.CardSmallInfoToAdminResponseDto;
-import com.example.bankcards.dto.response.UserResponseDto;
-import com.example.bankcards.entity.enums.CardStatus;
+import com.example.bankcards.dto.response.CardSmallResponseDto;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.time.LocalDate;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/admin")
@@ -19,14 +18,19 @@ public interface AdminApi {
     @PostMapping("/block/{id}")
     void blockCard(@PathVariable("id") UUID blockRequestId);
 
+    @PostMapping("/active/{id}")
+    void activeCard(@PathVariable("id") UUID cardId,
+                    @RequestParam(required = false) LocalDate expiryDate);
+
     @DeleteMapping("/card/{id}")
     void deleteCard(@PathVariable("id") UUID id);
 
     @GetMapping("/card")
-    Page<CardSmallInfoToAdminResponseDto> getCards(
+    Page<CardSmallResponseDto> getCards(
             @Min(0) @RequestParam(defaultValue = "0") int page,
             @Min(1) @RequestParam(defaultValue = "1") int size,
-            @RequestParam(value = "status") List<CardStatus> filter);
+            CardFilterRequestDto filter,
+            @RequestParam(required = false) UUID userId);
 
 
 }

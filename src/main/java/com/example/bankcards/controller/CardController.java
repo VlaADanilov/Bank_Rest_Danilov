@@ -8,6 +8,7 @@ import com.example.bankcards.dto.response.CardSmallResponseDto;
 import com.example.bankcards.service.BlockService;
 import com.example.bankcards.service.CardService;
 import com.example.bankcards.util.UserReturner;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -40,7 +41,7 @@ public class CardController implements CardApi {
     }
 
     @Override
-    public void transferMoney(CardTransferRequestDto requestDto) {
+    public void transferMoney(@Valid CardTransferRequestDto requestDto) {
         cardService.transferMoney(requestDto, userReturner.getUserId());
     }
 

@@ -7,6 +7,7 @@ import com.example.bankcards.dto.response.CardSmallResponseDto;
 import com.example.bankcards.dto.response.RequestToBlockResponseDto;
 import com.example.bankcards.service.BlockService;
 import com.example.bankcards.service.CardService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -22,7 +23,7 @@ public class AdminController implements AdminApi {
     private final CardService cardService;
 
     @Override
-    public UUID createCard(CardRequestDto card) {
+    public UUID createCard(@Valid CardRequestDto card) {
         return cardService.createCard(card);
     }
 

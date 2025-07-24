@@ -1,6 +1,6 @@
 package com.example.bankcards.util;
 
-import com.example.bankcards.config.property.SecurityProperty;
+import com.example.bankcards.config.property.MySecurityProperty;
 import com.example.bankcards.entity.enums.Role;
 import org.springframework.stereotype.Component;
 
@@ -27,7 +27,7 @@ public class WorkWithJwt {
     private final RSAPublicKey publicKey;
     private final Long expiration;
 
-    public WorkWithJwt(SecurityProperty property) {
+    public WorkWithJwt(MySecurityProperty property) {
         this.privateKey = loadPrivateKey(property.getPrivateKey());
         this.publicKey = loadPublicKey(property.getPublicKey());
         this.expiration = property.getExpiration();

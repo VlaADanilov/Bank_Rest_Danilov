@@ -1,6 +1,6 @@
 package com.example.bankcards.config;
 
-import com.example.bankcards.config.property.SecurityProperty;
+import com.example.bankcards.config.property.MySecurityProperty;
 import com.example.bankcards.controller.filter.JwtAuthenticationFilter;
 import com.example.bankcards.entity.enums.Role;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableConfigurationProperties(SecurityProperty.class)
+@EnableConfigurationProperties(MySecurityProperty.class)
 public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     @Bean
@@ -33,8 +33,8 @@ public class SecurityConfig {
                                         "/v3/api-docs",
                                         "/actuator/health",
                                         "/error").permitAll()
-                                .requestMatchers("/api/v1/card/**").hasRole(Role.ROLE_USER.name())
-                                .requestMatchers("/api/v1/admin/**").hasRole(Role.ROLE_ADMIN.name())
+                                .requestMatchers("/api/v1/card/**").hasRole(Role.USER.name())
+                                .requestMatchers("/api/v1/admin/**").hasRole(Role.ADMIN.name())
                                 .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

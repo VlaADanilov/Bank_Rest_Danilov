@@ -113,7 +113,7 @@ public class CardServiceImpl implements CardService {
     private Card getCardWithCheckAccessWithAdmin(UUID cardId, UUID userId, Role userRole) {
         Card card = cardRepository.findById(cardId).orElseThrow(() ->
                 new CardNotFoundException(cardId));
-        if (!card.getUser().getId().equals(userId) && !userRole.equals(Role.ROLE_ADMIN)) {
+        if (!card.getUser().getId().equals(userId) && !userRole.equals(Role.ADMIN)) {
             throw new AccessDeniedException(
                     "You do not have permission to do this action with this card"
             );

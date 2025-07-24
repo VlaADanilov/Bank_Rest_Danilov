@@ -34,6 +34,6 @@ public class Card {
     private Integer balance;
 
     @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 }

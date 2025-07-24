@@ -1,66 +1,58 @@
+
 app:
   security:
 #    В миллисекундах
     expiration: 6000000
     private-key: "-----BEGIN PRIVATE KEY-----
-  MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC6ivr6MguCT9Fz
-  4d4lsISr0jsGyLd4aAGJJ+HjWx0TQy0JSb/pg6Yf3ouvUEzS2sUG9QpMojGNHLH5
-  hS5HbdPv77CYzPP/7Qi75xaMt9ls4YO7J84gWuPDT3WzJlkd1rFhanPVR4TzVB8t
-  VacYggz2w78YMpbCBJINR9+Md/Z62OBgKPuRic/3pKgokm43ga/JplO0XMprsNZx
-  J9V8GRcj1idzIsSqFAZ2YxzNHEm8krcll8vzVsU5Cwf4fA/WvOVlXF65eu8zhUMd
-  iKQH025/mvDsOuGmQK3S/CBiTn8zsD2oqgVAi1z2TYS7UYdrrGknrW7T6EVLOPF4
-  bU+NpxjFAgMBAAECggEAVNYSECkkXM5KFmaZbhCaNb41g/9SmVrLoAHYVFrCnVkG
-  qVu2ANAThBjk9AUT+yztQB2+4l09JczwD+eGxYtoQI2Eheln6nN1bmdJNRQDuOXS
-  0BHpR4OuY8vGXoRJMS3Lm98a8NtG1pbiWu7CQH4cwTkCtlGDiJcliQ6v1yVTnkgu
-  hQDKN9j4gBiZBWCTXVViwewWyR/b9k+i/+KyChq3+BLzgXsoMuuRhmqBe2czunRR
-  Wg9TfrAxgh+8hO+ZY0Wd2eRbA9simBGmyZiDL37c+0s1om5/BFfIGuc3Xt6OwWHn
-  KQcPo+fi1bs9UUhP0gBkc570+1BOI7Xn6kOCZyTTwQKBgQDpl1c6yT9MpFUAIUSX
-  7CH9EGpyUTI5fsTQLoUVHGMqO9TTjhw51zbbNsG34ILuEhyCeHvWIHiLz8pTwSKw
-  FPOMeqCUowSZRMu3tzJg9k6tWXAHhbEwsdwhqE8H3WkNDM2325c2LF2SATlLIOFK
-  fb7dNiWtHAKUzMninEf2DC4y8QKBgQDMcDPJsUU+riY4osnd57urjImHaf9p1bEV
-  PD1MAnXOgtEjNSGIPNj9o+Zq6WF+NuTnkWungfGS7upKnYHyTDw1itnX+7J26/cu
-  fRh9mEyexh849Nm/OP8C3PEEOxTlSkZvjBGb+T0eO4kHU5BX6fMFzD3BgofBI7ko
-  884uW1WbFQKBgGB7Jwdb6i5Aze8AzrElUiCRcDYJfYIr7yTBoixHDlp6XfyHfPcT
-  AlBm/HpzXADzMB1foF6gCMpOqBYR9r7d2H6Ug9EAyDx6It6d50wPUA3fnBsvSDGB
-  tRedyg7Ij8RZHnsrUviIOJm+sahrS0KWT4hU/hjTMem98EEOJdblzwsxAoGBAIxt
-  chVUEEV66EQ1BcbIu++djIaYt9oh8A6vH0fL1NIyp6ewgkULzt2DLO45Oz+wQ1IR
-  YMpiBucv932jbbRay2zX4MVsXe00LskfIqh66f6SBrZf8gZZB0oXK/MFBlhtya4r
-  n5js/h97M6f1rYvF5qoP3kfC+q8fc7t+pRzQnh/1AoGAQ+AOGc7cd9Sjnb1LtJn7
-  brHPQq+nWldzRnyGLwaJH2upgvL3EKMxjxXuUgkxDhuWwttQpm8vDep7nUCWkXhf
-  S7ZAmAKJv9V7mE9LlYHMJ1E7UycD9ywsiezv7V3AVVFyoZci8e7Q1Ha5a8gVAEGM
-  prVVzw7qepwtqybhiWRjddE=
+  MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDNGKvSkv8Wyhxo
+  Tb7fiHGQnLtN+S4mJ9EXKLCQK8vMpEszoX1WRnTtJgYUqejuPhJqQCm6qzxcK90V
+  vPlcE6RWRx/pQozzSBQu7irukFa9GpshBUWfG/E58R6D89Yk2PMD170D7s9MtdSX
+  zR9y/aUGYBOABd0eHeanvJmv2bvQYNmhVp43AtSQf526/C5QNZ7PEdcA2WqCNJpi
+  g4peILfmZ9mkCF9G7J+HAHiMNaJbdejMgkgyQaDPTOiijxXnErWr9BcQQ46ipOAT
+  gqkf8EhegbMEgSVx3CKC0VtSTFtFP86Q1PJh9EQtS39+aKarw60LX1VJPZ4VlSdK
+  SC4si3qlAgMBAAECggEAck9w3NGfKWWGhb/nRZE3sqEYaDIcvZltmVnNZt1yHmHn
+  pCQ6xk5ItzB9LSEyOS8RdnTCjU8JOlocRBRqax5rdsb3izvTcXjX/vwxo3uBTK66
+  jaHxluetAF1aY7MQxMLCV37z03BTy+6ASgdCowWp566+z5j1D+cceprMkc1qN43z
+  7v8Z25HA3j2NFHl6XQceYmqGH8XP99sMHp7awNVvwPfKBNcMjiIQ8U7v9osypPO5
+  1bA7HAxvofKLXrh7rHzrRFf98baA0M3CJ6K2Hl3SOe05F0jYLHpWHPoL7cweNDax
+  3UbhuysJLglsY+HznW+v8UzAQ2OPBWytrlQ9XLhmlQKBgQDnLcPIZhfDXwNB/CRi
+  8vtwsRKe6WAfOAs5mC9nuiqkBayK16mgjqzVeU/wYvl1iVHb6/eY34iwHunkwH2H
+  IKQKB2TaieMIrsoKkxWdEFLmJYpL7ETayUYaZvdCjIW56nrDyLd0zxt11zc7kM46
+  XqLabeRo7j4OwC3EGg9svX6KcwKBgQDjHf/W9Cqxw/JfXJf7pjeyPOmCjE5h/hrp
+  pd7b9jgGDeI7shoJquEsfhCfq9g35Kz9vF7OU6v4PAe6H6V70TpwD8RWge417ye0
+  I2yF8EJU+KAHBoEiEB6ISQquMfdMIr6NOztYw7nVO2vq94gpkgw+OVZwo+NZBlX9
+  2F7bJfeohwKBgGEkfvevxt6HB2Rr4pJdzkCtd8ilAoo7z6O1Cn6I4TApXja9pv7b
+  1U6i+m9l97NnL6m9Pz7S96oiY2CHbnggxC2eq8eVV3ynjijhY5yrZlplffanYsuY
+  9kdT6yTgzbSxDkNFDaoc+UoMVJ5IHBC1AbPNp8RcEGG8ab7UwJSOECV3AoGAHWeT
+  6Ruhr3REHA6b6svhaCU0wl8yAsPobhm4mdft9vKzOLFdZ6UFFEKaGmIgU1Q7BXru
+  912j5Ta4dWOFhFtZaorQC7c0xSzaghsYANtTazbpWR+BdoyJt3FlfZogf238J8Lk
+  cyCcHbxcw4Yaze8HwMKhq2G8nJkSZxQta8gloV8CgYEAyMiY9373tK3kspGFVQVR
+  j2HZ4XTJWw15so4x0bBjloONrApibcwOTZmxzDaKHZxVOdJR1Pd7xwd2Io70ncgz
+  X5KdwBrMUeAKSE6Aa1KTQ4JjnEw6PtQ2J0mrQA3BX3SYNLnzRWuv0X/E830cAq2t
+  scBEf6mKHHSmNcL5o8DQiA4=
   -----END PRIVATE KEY-----"
-    public-key: "-----BEGIN PRIVATE KEY-----
-MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC6ivr6MguCT9Fz
-4d4lsISr0jsGyLd4aAGJJ+HjWx0TQy0JSb/pg6Yf3ouvUEzS2sUG9QpMojGNHLH5
-hS5HbdPv77CYzPP/7Qi75xaMt9ls4YO7J84gWuPDT3WzJlkd1rFhanPVR4TzVB8t
-VacYggz2w78YMpbCBJINR9+Md/Z62OBgKPuRic/3pKgokm43ga/JplO0XMprsNZx
-J9V8GRcj1idzIsSqFAZ2YxzNHEm8krcll8vzVsU5Cwf4fA/WvOVlXF65eu8zhUMd
-iKQH025/mvDsOuGmQK3S/CBiTn8zsD2oqgVAi1z2TYS7UYdrrGknrW7T6EVLOPF4
-bU+NpxjFAgMBAAECggEAVNYSECkkXM5KFmaZbhCaNb41g/9SmVrLoAHYVFrCnVkG
-qVu2ANAThBjk9AUT+yztQB2+4l09JczwD+eGxYtoQI2Eheln6nN1bmdJNRQDuOXS
-0BHpR4OuY8vGXoRJMS3Lm98a8NtG1pbiWu7CQH4cwTkCtlGDiJcliQ6v1yVTnkgu
-hQDKN9j4gBiZBWCTXVViwewWyR/b9k+i/+KyChq3+BLzgXsoMuuRhmqBe2czunRR
-Wg9TfrAxgh+8hO+ZY0Wd2eRbA9simBGmyZiDL37c+0s1om5/BFfIGuc3Xt6OwWHn
-KQcPo+fi1bs9UUhP0gBkc570+1BOI7Xn6kOCZyTTwQKBgQDpl1c6yT9MpFUAIUSX
-7CH9EGpyUTI5fsTQLoUVHGMqO9TTjhw51zbbNsG34ILuEhyCeHvWIHiLz8pTwSKw
-FPOMeqCUowSZRMu3tzJg9k6tWXAHhbEwsdwhqE8H3WkNDM2325c2LF2SATlLIOFK
-fb7dNiWtHAKUzMninEf2DC4y8QKBgQDMcDPJsUU+riY4osnd57urjImHaf9p1bEV
-PD1MAnXOgtEjNSGIPNj9o+Zq6WF+NuTnkWungfGS7upKnYHyTDw1itnX+7J26/cu
-fRh9mEyexh849Nm/OP8C3PEEOxTlSkZvjBGb+T0eO4kHU5BX6fMFzD3BgofBI7ko
-884uW1WbFQKBgGB7Jwdb6i5Aze8AzrElUiCRcDYJfYIr7yTBoixHDlp6XfyHfPcT
-AlBm/HpzXADzMB1foF6gCMpOqBYR9r7d2H6Ug9EAyDx6It6d50wPUA3fnBsvSDGB
-tRedyg7Ij8RZHnsrUviIOJm+sahrS0KWT4hU/hjTMem98EEOJdblzwsxAoGBAIxt
-chVUEEV66EQ1BcbIu++djIaYt9oh8A6vH0fL1NIyp6ewgkULzt2DLO45Oz+wQ1IR
-YMpiBucv932jbbRay2zX4MVsXe00LskfIqh66f6SBrZf8gZZB0oXK/MFBlhtya4r
-n5js/h97M6f1rYvF5qoP3kfC+q8fc7t+pRzQnh/1AoGAQ+AOGc7cd9Sjnb1LtJn7
-brHPQq+nWldzRnyGLwaJH2upgvL3EKMxjxXuUgkxDhuWwttQpm8vDep7nUCWkXhf
-S7ZAmAKJv9V7mE9LlYHMJ1E7UycD9ywsiezv7V3AVVFyoZci8e7Q1Ha5a8gVAEGM
-prVVzw7qepwtqybhiWRjddE=
------END PRIVATE KEY-----
-"
+
+    public-key: "-----BEGIN PUBLIC KEY-----
+  MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzRir0pL/FsocaE2+34hx
+  kJy7TfkuJifRFyiwkCvLzKRLM6F9VkZ07SYGFKno7j4SakApuqs8XCvdFbz5XBOk
+  Vkcf6UKM80gULu4q7pBWvRqbIQVFnxvxOfEeg/PWJNjzA9e9A+7PTLXUl80fcv2l
+  BmATgAXdHh3mp7yZr9m70GDZoVaeNwLUkH+duvwuUDWezxHXANlqgjSaYoOKXiC3
+  5mfZpAhfRuyfhwB4jDWiW3XozIJIMkGgz0zooo8V5xK1q/QXEEOOoqTgE4KpH/BI
+  XoGzBIElcdwigtFbUkxbRT/OkNTyYfRELUt/fmimq8OtC19VST2eFZUnSkguLIt6
+  pQIDAQAB
+  -----END PUBLIC KEY-----"
+
 #Что нужно сделать:
 #  - Указать настройки подключения к базе данных.
 #  - Указать порт приложения.
 #  - Настроить параметры безопасности и JWT.
 #  - Включить Swagger UI.
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+    url: jdbc:postgresql://localhost:5432/bank_rest_danilov
+  jpa:
+    hibernate:
+      ddl-auto: validate

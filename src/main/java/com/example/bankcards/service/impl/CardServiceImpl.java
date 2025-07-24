@@ -40,9 +40,18 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public Page<CardSmallResponseDto> getCards(Pageable of, CardFilterRequestDto filter, UUID userId) {
-        return cardRepository.findAll(
-                CardSpecifications.byUserIdAndStatusIn(userId, filter.statusList()),
-                of).map(cardMapper::toCardSmallResponseDto);
+        Page<Card> cards;
+        if (userId == null) {
+            cards = cardRepository.findByStatusIn(filter.statusList(), of);
+        } else {
+            if (!userRepository.existsById(userId)) {
+                throw new UserNotFoundException(userId);
+            }
+            cards = cardRepository.findAll(
+                    CardSpecifications.byUserIdAndStatusIn(userId, filter.statusList()),
+                    of);
+        }
+        return cards.map(cardMapper::toCardSmallResponseDto);
     }
 
     @Override

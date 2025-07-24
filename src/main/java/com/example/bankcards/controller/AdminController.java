@@ -37,7 +37,6 @@ public class AdminController implements AdminApi {
     }
 
 
-    //TODO тут вместо userId может прийти null
     @Override
     public Page<CardSmallResponseDto> getCards(int page, int size, CardFilterRequestDto filter, UUID userId) {
         return cardService.getCards(

@@ -37,7 +37,7 @@ public interface UserApi {
     @ApiResponse(responseCode = "200", description = "Пользователи успешно получены")
     Page<UserResponseDto> getUsers(
             @Min(0) @RequestParam(defaultValue = "0") int page,
-            @Min(1) @RequestParam(defaultValue = "1") int size,
+            @Min(1) @RequestParam(defaultValue = "10") int size,
             UserFilterRequestDto filter
     );
 

@@ -4,6 +4,10 @@ import com.example.bankcards.dto.request.CardFilterRequestDto;
 import com.example.bankcards.dto.request.CardTransferRequestDto;
 import com.example.bankcards.dto.response.CardHugeResponseDto;
 import com.example.bankcards.dto.response.CardSmallResponseDto;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Page;
@@ -15,27 +19,75 @@ import java.util.UUID;
 
 @RequestMapping("/api/v1/card")
 @Validated
+@Tag(name = "AdminControllerApi",
+        description = "API для работы с картами")
+@ApiResponses(value = {
+        @ApiResponse(responseCode = "400", description = "Некорректные данные запроса"),
+        @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера")
+})
 public interface CardApi {
+
+    @Operation(
+            summary = "Получить список моих карт",
+            description = """
+    Этот метод позволяет получить мои карты"""
+    )
+    @ApiResponse(responseCode = "200", description = "Карты успешно получены")
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     Page<CardSmallResponseDto> getMyCards(
             @Min(0) @RequestParam(defaultValue = "0") int page,
-            @Min(1) @RequestParam(defaultValue = "1") int size,
+            @Min(1) @RequestParam(defaultValue = "10") int size,
             CardFilterRequestDto filter);
 
+    @Operation(
+            summary = "Получить информацию по карте",
+            description = """
+    Этот метод позволяет получить детальную информацию по карте"""
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Информация о карте получена"),
+            @ApiResponse(responseCode = "404", description = "Карта не существует"),
+    })
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     CardHugeResponseDto getById(@PathVariable UUID id);
 
+    @Operation(
+            summary = "Запрос на блокировку карты",
+            description = """
+    Этот метод позволяет отправить запрос на блокировку карты"""
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Запрос успешно отправлен"),
+            @ApiResponse(responseCode = "404", description = "Карта не существует"),
+    })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     UUID requestToBlockCard(@PathVariable("id") UUID id);
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.OK)
+    @Operation(
+            summary = "Отправить деньги между своими счетами",
+            description = """
+    Этот метод позволяет отправить деньги между своими счетами"""
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Карты успешно получены"),
+            @ApiResponse(responseCode = "418", description = "Недостаточно средств для совершения операции"),
+    })
     void transferMoney(@Valid CardTransferRequestDto requestDto);
 
-
+    @Operation(
+            summary = "Удалить карту",
+            description = """
+    Этот метод позволяет удалить карту"""
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Карта успешно удалена"),
+            @ApiResponse(responseCode = "404", description = "Карта не существует"),
+    })
     @DeleteMapping("/card/{id}")
     void deleteCard(@PathVariable("id") UUID id);
 }

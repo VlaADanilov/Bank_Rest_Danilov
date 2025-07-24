@@ -63,15 +63,31 @@ public interface AdminApi {
                     @ValidDate @RequestParam() LocalDate expiryDate);
 
     @GetMapping("/card")
+    @Operation(
+            summary = "Получить список карт",
+            description = """
+    Этот метод позволяет получить список карт общий, или по конкретному пользователю
+    с фильтрацией по статусам"""
+    )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Карты успешно получены"),
+            @ApiResponse(responseCode = "404", description = "Пользователь не существует"),
+    })
     Page<CardSmallResponseDto> getCards(
             @Min(0) @RequestParam(defaultValue = "0") int page,
-            @Min(1) @RequestParam(defaultValue = "1") int size,
+            @Min(1) @RequestParam(defaultValue = "10") int size,
             CardFilterRequestDto filter,
             @RequestParam(required = false) UUID userId);
 
+    @Operation(
+            summary = "Получить список запросов на блокировку",
+            description = """
+    Этот метод позволяет получить список запросов на блокировку карт"""
+    )
+    @ApiResponse(responseCode = "200", description = "Запросы успешно получены")
     @GetMapping("/requestsToBlock")
     Page<RequestToBlockResponseDto> getRequests(
             @Min(0) @RequestParam(defaultValue = "0") int page,
-            @Min(1) @RequestParam(defaultValue = "1") int size
+            @Min(1) @RequestParam(defaultValue = "10") int size
     );
 }

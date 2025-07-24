@@ -21,6 +21,6 @@ create table card(
 
 create table request_to_block(
     id uuid not null primary key,
-    card_id uuid unique references public.card
+    card_id uuid unique references card
 );
 

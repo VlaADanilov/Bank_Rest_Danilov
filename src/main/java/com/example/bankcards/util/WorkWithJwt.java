@@ -79,8 +79,7 @@ public class WorkWithJwt {
 
     private RSAPublicKey loadPublicKey(String publicKeyResource) {
         try {
-            String fullInfo = publicKeyResource;
-            String encoded = fullInfo.replaceAll("-----BEGIN PUBLIC KEY-----", "")
+            String encoded = publicKeyResource.replaceAll("-----BEGIN PUBLIC KEY-----", "")
                     .replaceAll("-----END PUBLIC KEY-----", "")
                     .replaceAll("\\s", "");
 
@@ -95,8 +94,7 @@ public class WorkWithJwt {
 
     private RSAPrivateKey loadPrivateKey(String privateKeyResource) {
         try {
-            String fullInfo = privateKeyResource;
-            String encoded = fullInfo.replaceAll("-----BEGIN PRIVATE KEY-----", "")
+            String encoded = privateKeyResource.replaceAll("-----BEGIN PRIVATE KEY-----", "")
                     .replaceAll("-----END PRIVATE KEY-----", "")
                     .replaceAll("\\s", "");
             byte[] decoded = Base64.getDecoder().decode(encoded);

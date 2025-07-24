@@ -26,7 +26,7 @@ public interface CardApi {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    void blockCard(@PathVariable("id") UUID id);
+    UUID requestToBlockCard(@PathVariable("id") UUID id);
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.OK)

@@ -4,6 +4,7 @@ import com.example.bankcards.dto.request.CardFilterRequestDto;
 import com.example.bankcards.dto.request.CardRequestDto;
 import com.example.bankcards.dto.response.CardSmallResponseDto;
 import com.example.bankcards.dto.response.RequestToBlockResponseDto;
+import com.example.bankcards.util.validation.ValidDate;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -17,14 +18,11 @@ public interface AdminApi {
     UUID createCard(@RequestBody CardRequestDto card);
 
     @PostMapping("/block/{id}")
-    void blockCard(@PathVariable("id") UUID blockRequestId);
+    void blockCard(@PathVariable("id") UUID cardId);
 
     @PostMapping("/active/{id}")
     void activeCard(@PathVariable("id") UUID cardId,
-                    @RequestParam(required = false) LocalDate expiryDate);
-
-    @DeleteMapping("/card/{id}")
-    void deleteCard(@PathVariable("id") UUID id);
+                    @ValidDate @RequestParam() LocalDate expiryDate);
 
     @GetMapping("/card")
     Page<CardSmallResponseDto> getCards(

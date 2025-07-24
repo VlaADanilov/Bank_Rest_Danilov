@@ -6,6 +6,7 @@ import com.example.bankcards.dto.request.CardRequestDto;
 import com.example.bankcards.dto.response.CardSmallResponseDto;
 import com.example.bankcards.dto.response.RequestToBlockResponseDto;
 import com.example.bankcards.service.BlockService;
+import com.example.bankcards.service.CardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,30 +19,30 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class AdminController implements AdminApi {
     private final BlockService blockService;
+    private final CardService cardService;
 
     @Override
     public UUID createCard(CardRequestDto card) {
-        return null;
+        return cardService.createCard(card);
     }
 
     @Override
-    public void blockCard(UUID blockRequestId) {
-
+    public void blockCard(UUID cardId) {
+        cardService.block(cardId);
     }
 
     @Override
     public void activeCard(UUID cardId, LocalDate expiryDate) {
-
+        cardService.activate(cardId, expiryDate);
     }
 
-    @Override
-    public void deleteCard(UUID id) {
-
-    }
 
     @Override
     public Page<CardSmallResponseDto> getCards(int page, int size, CardFilterRequestDto filter, UUID userId) {
-        return null;
+        return cardService.getCards(
+                PageRequest.of(page, size),
+                filter,
+                userId);
     }
 
     @Override

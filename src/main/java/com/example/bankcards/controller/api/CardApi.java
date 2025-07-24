@@ -30,6 +30,9 @@ public interface CardApi {
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.OK)
-    UUID transferMoney(CardTransferRequestDto requestDto);
+    void transferMoney(CardTransferRequestDto requestDto);
 
+
+    @DeleteMapping("/card/{id}")
+    void deleteCard(@PathVariable("id") UUID id);
 }

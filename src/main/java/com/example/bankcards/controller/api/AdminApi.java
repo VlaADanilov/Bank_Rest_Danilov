@@ -1,9 +1,9 @@
 package com.example.bankcards.controller.api;
 
-import com.example.bankcards.dto.request.CardFilterRequestDto;
 import com.example.bankcards.dto.request.CardRequestDto;
 import com.example.bankcards.dto.response.CardSmallResponseDto;
 import com.example.bankcards.dto.response.RequestToBlockResponseDto;
+import com.example.bankcards.entity.enums.CardStatus;
 import com.example.bankcards.util.validation.ValidDate;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -16,6 +16,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @ApiResponses(value = {
@@ -76,7 +77,7 @@ public interface AdminApi {
     Page<CardSmallResponseDto> getCards(
             @Min(0) @RequestParam(defaultValue = "0") int page,
             @Min(1) @RequestParam(defaultValue = "10") int size,
-            CardFilterRequestDto filter,
+            @RequestParam List<CardStatus> filter,
             @RequestParam(required = false) UUID userId);
 
     @Operation(

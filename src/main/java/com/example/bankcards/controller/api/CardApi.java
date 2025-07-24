@@ -1,9 +1,9 @@
 package com.example.bankcards.controller.api;
 
-import com.example.bankcards.dto.request.CardFilterRequestDto;
 import com.example.bankcards.dto.request.CardTransferRequestDto;
 import com.example.bankcards.dto.response.CardHugeResponseDto;
 import com.example.bankcards.dto.response.CardSmallResponseDto;
+import com.example.bankcards.entity.enums.CardStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -15,11 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RequestMapping("/api/v1/card")
 @Validated
-@Tag(name = "AdminControllerApi",
+@Tag(name = "CardControllerApi",
         description = "API для работы с картами")
 @ApiResponses(value = {
         @ApiResponse(responseCode = "400", description = "Некорректные данные запроса"),
@@ -38,7 +39,7 @@ public interface CardApi {
     Page<CardSmallResponseDto> getMyCards(
             @Min(0) @RequestParam(defaultValue = "0") int page,
             @Min(1) @RequestParam(defaultValue = "10") int size,
-            CardFilterRequestDto filter);
+            @RequestParam List<CardStatus> filter);
 
     @Operation(
             summary = "Получить информацию по карте",

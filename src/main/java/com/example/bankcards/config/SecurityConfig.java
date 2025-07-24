@@ -29,13 +29,9 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(smc -> smc.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
-                        auth.requestMatchers(
-                                        "/v3/api-docs",
-                                        "/actuator/health",
-                                        "/error").permitAll()
-                                .requestMatchers("/api/v1/card/**").hasRole(Role.USER.name())
+                        auth.requestMatchers("/api/v1/card/**").hasRole(Role.USER.name())
                                 .requestMatchers("/api/v1/admin/**").hasRole(Role.ADMIN.name())
-                                .anyRequest().authenticated()
+                                .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

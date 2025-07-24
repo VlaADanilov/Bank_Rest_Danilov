@@ -1,6 +1,5 @@
 package com.example.bankcards.service.impl;
 
-import com.example.bankcards.dto.request.CardFilterRequestDto;
 import com.example.bankcards.dto.request.CardRequestDto;
 import com.example.bankcards.dto.request.CardTransferRequestDto;
 import com.example.bankcards.dto.response.CardHugeResponseDto;
@@ -27,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -39,16 +39,16 @@ public class CardServiceImpl implements CardService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Page<CardSmallResponseDto> getCards(Pageable of, CardFilterRequestDto filter, UUID userId) {
+    public Page<CardSmallResponseDto> getCards(Pageable of, List<CardStatus> filter, UUID userId) {
         Page<Card> cards;
         if (userId == null) {
-            cards = cardRepository.findByStatusIn(filter.statusList(), of);
+            cards = cardRepository.findByStatusIn(filter, of);
         } else {
             if (!userRepository.existsById(userId)) {
                 throw new UserNotFoundException(userId);
             }
             cards = cardRepository.findAll(
-                    CardSpecifications.byUserIdAndStatusIn(userId, filter.statusList()),
+                    CardSpecifications.byUserIdAndStatusIn(userId, filter),
                     of);
         }
         return cards.map(cardMapper::toCardSmallResponseDto);

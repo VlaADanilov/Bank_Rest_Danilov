@@ -1,10 +1,10 @@
 package com.example.bankcards.controller;
 
 import com.example.bankcards.controller.api.AdminApi;
-import com.example.bankcards.dto.request.CardFilterRequestDto;
 import com.example.bankcards.dto.request.CardRequestDto;
 import com.example.bankcards.dto.response.CardSmallResponseDto;
 import com.example.bankcards.dto.response.RequestToBlockResponseDto;
+import com.example.bankcards.entity.enums.CardStatus;
 import com.example.bankcards.service.BlockService;
 import com.example.bankcards.service.CardService;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -38,7 +39,7 @@ public class AdminController implements AdminApi {
 
 
     @Override
-    public Page<CardSmallResponseDto> getCards(int page, int size, CardFilterRequestDto filter, UUID userId) {
+    public Page<CardSmallResponseDto> getCards(int page, int size, List<CardStatus> filter, UUID userId) {
         return cardService.getCards(
                 PageRequest.of(page, size),
                 filter,

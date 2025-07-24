@@ -23,7 +23,7 @@ public class AdminController implements AdminApi {
     private final CardService cardService;
 
     @Override
-    public UUID createCard(@Valid CardRequestDto card) {
+    public UUID createCard(CardRequestDto card) {
         return cardService.createCard(card);
     }
 
@@ -38,6 +38,7 @@ public class AdminController implements AdminApi {
     }
 
 
+    //TODO тут вместо userId может прийти null
     @Override
     public Page<CardSmallResponseDto> getCards(int page, int size, CardFilterRequestDto filter, UUID userId) {
         return cardService.getCards(

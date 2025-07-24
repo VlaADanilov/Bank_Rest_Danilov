@@ -4,14 +4,17 @@ import com.example.bankcards.dto.request.CardFilterRequestDto;
 import com.example.bankcards.dto.request.CardTransferRequestDto;
 import com.example.bankcards.dto.response.CardHugeResponseDto;
 import com.example.bankcards.dto.response.CardSmallResponseDto;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
 @RequestMapping("/api/v1/card")
+@Validated
 public interface CardApi {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
@@ -30,7 +33,7 @@ public interface CardApi {
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.OK)
-    void transferMoney(CardTransferRequestDto requestDto);
+    void transferMoney(@Valid CardTransferRequestDto requestDto);
 
 
     @DeleteMapping("/card/{id}")

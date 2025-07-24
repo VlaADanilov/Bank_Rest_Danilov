@@ -41,7 +41,7 @@ public class CardController implements CardApi {
     }
 
     @Override
-    public void transferMoney(@Valid CardTransferRequestDto requestDto) {
+    public void transferMoney(CardTransferRequestDto requestDto) {
         cardService.transferMoney(requestDto, userReturner.getUserId());
     }
 

@@ -36,12 +36,12 @@ public class UserController implements UserApi {
     }
 
     @Override
-    public UUID createUser(@Valid UserRequestDto requestDto) {
+    public UUID createUser(UserRequestDto requestDto) {
         return authService.register(requestDto);
     }
 
     @Override
-    public JwtResponseDto login(@Valid LoginRequestDto loginRequestDto) {
+    public JwtResponseDto login(LoginRequestDto loginRequestDto) {
         return authService.login(loginRequestDto);
     }
 }

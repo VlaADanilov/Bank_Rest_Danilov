@@ -8,7 +8,6 @@ import com.example.bankcards.dto.response.JwtResponseDto;
 import com.example.bankcards.dto.response.UserResponseDto;
 import com.example.bankcards.service.AuthService;
 import com.example.bankcards.service.UserService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

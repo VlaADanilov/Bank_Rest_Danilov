@@ -16,7 +16,7 @@ class WorkWithJwtTest {
     private WorkWithJwt workWithJwt;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         MySecurityProperty property = new MySecurityProperty();
         String privateKeyStr = """
                 -----BEGIN PRIVATE KEY-----

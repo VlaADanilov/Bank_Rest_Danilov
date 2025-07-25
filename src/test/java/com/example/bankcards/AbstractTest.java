@@ -131,7 +131,7 @@ public class AbstractTest {
     private Card getCard(UUID userId, int i, CardStatus status, String startCardNumber) {
         return Card.builder()
                 .user(userRepository.getReferenceById(userId))
-                .cardNumber("startCardNumber" + i)
+                .cardNumber(startCardNumber + i)
                 .balance(1000)
                 .status(status)
                 .expiryDate(LocalDate.now().plusDays(5))

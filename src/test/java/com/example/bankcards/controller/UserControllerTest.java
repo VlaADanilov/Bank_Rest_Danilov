@@ -83,7 +83,7 @@ public class UserControllerTest extends AbstractTest {
     }
 
     @Test
-    public void getUsers_ReturnsAllUsers() throws Exception {
+    public void getUsers_ReturnsAllUsers() {
         authentificateAsAdmin();
         int count = 5;
         List<UUID> someUsersInDB = createSomeUsersInDB(count);
@@ -97,10 +97,10 @@ public class UserControllerTest extends AbstractTest {
     }
 
     @Test
-    public void getUsers_WithUsernameFilter_ReturnsNeededUser() throws Exception {
+    public void getUsers_WithUsernameFilter_ReturnsNeededUser() {
         authentificateAsAdmin();
         int count = 5;
-        List<UUID> someUsersInDB = createSomeUsersInDB(count);
+        createSomeUsersInDB(count);
         UUID individual = saveUserToDB("Vlad", "1234");
 
         Page<UserResponseDto> users =

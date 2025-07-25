@@ -124,7 +124,7 @@ public class CardControllerTest extends AbstractTest {
     @Test
     public void deleteCard_WithNotExistsCardId_ReturnsNotFound() throws Exception {
         mvc.perform(delete("/api/v1/card/" + UUID.randomUUID()))
-                .andExpect(status().isNotFound());;
+                .andExpect(status().isNotFound());
     }
 
     @Test

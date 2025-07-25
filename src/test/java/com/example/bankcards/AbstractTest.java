@@ -20,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 @AutoConfigureMockMvc
@@ -65,10 +66,15 @@ public class AbstractTest {
     }
 
     protected List<UUID> createSomeUsersInDB(int count) {
+        return createSomeUsersInDB(count, "default");
+    }
+
+    protected List<UUID> createSomeUsersInDB(int count, String string) {
         List<UUID> users = new ArrayList<>();
         for (int i = 0; i < count; i++) {
+
             User build = User.builder()
-                    .username("username" + i)
+                    .username("username" + i + string)
                     .password(passwordEncoder.encode("password" + i))
                     .firstName("first" + i)
                     .lastName("last" + i)

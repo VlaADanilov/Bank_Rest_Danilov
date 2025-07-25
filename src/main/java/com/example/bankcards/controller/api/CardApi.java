@@ -80,7 +80,7 @@ public interface CardApi {
             @ApiResponse(responseCode = "200", description = "Деньги успешно переведены"),
             @ApiResponse(responseCode = "418", description = "Недостаточно средств для совершения операции"),
     })
-    void transferMoney(@Valid CardTransferRequestDto requestDto);
+    void transferMoney(@Valid @RequestBody CardTransferRequestDto requestDto);
 
     @Operation(
             summary = "Удалить карту",

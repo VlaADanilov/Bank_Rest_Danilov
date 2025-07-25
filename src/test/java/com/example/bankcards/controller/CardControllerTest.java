@@ -1,6 +1,7 @@
 package com.example.bankcards.controller;
 
 import com.example.bankcards.AbstractTest;
+import com.example.bankcards.dto.request.CardTransferRequestDto;
 import com.example.bankcards.dto.response.CardHugeResponseDto;
 import com.example.bankcards.dto.response.CardSmallResponseDto;
 import com.example.bankcards.entity.Card;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 
 import java.util.*;
 
@@ -193,5 +195,155 @@ public class CardControllerTest extends AbstractTest {
         addAllTypeOfCards();
         Page<CardSmallResponseDto> myCards = cardController.getMyCards(0, 9, List.of());
         assertEquals(myCards.getContent().size(), 0);
+    }
+
+    @Test
+    public void transfer_WithMyCards_ReturnsOkAndMoneyTransfered() throws Exception {
+        List<Card> cards = addActualCardsToUser(userId);
+        Card fromCard = cards.get(0);
+        Card toCard = cards.get(1);
+        int transferedMoney = 500;
+        Integer fromCardStartBalance = fromCard.getBalance();
+        Integer toCardStartBalance = toCard.getBalance();
+
+        CardTransferRequestDto transfer = new CardTransferRequestDto(
+                fromCard.getId(), toCard.getId(), transferedMoney
+        );
+
+        mvc.perform(post("/api/v1/card/transfer")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(transfer)))
+                .andExpect(status().isOk());
+
+        fromCard = cardRepository.findById(fromCard.getId()).orElseThrow();
+        assertEquals(fromCardStartBalance - transferedMoney, fromCard.getBalance());
+        toCard = cardRepository.findById(toCard.getId()).orElseThrow();
+        assertEquals(toCardStartBalance + transferedMoney, toCard.getBalance());
+    }
+
+    @Test
+    public void transfer_WithMyCardsButHaventMoney_ReturnsIAmATeapot() throws Exception {
+        List<Card> cards = addActualCardsToUser(userId);
+        Card fromCard = cards.get(0);
+        Card toCard = cards.get(1);
+        int transferedMoney = 5000;
+        Integer fromCardStartBalance = fromCard.getBalance();
+        Integer toCardStartBalance = toCard.getBalance();
+
+        CardTransferRequestDto transfer = new CardTransferRequestDto(
+                fromCard.getId(), toCard.getId(), transferedMoney
+        );
+
+        mvc.perform(post("/api/v1/card/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(transfer)))
+                .andExpect(status().isIAmATeapot());
+
+        fromCard = cardRepository.findById(fromCard.getId()).orElseThrow();
+        assertEquals(fromCardStartBalance, fromCard.getBalance());
+        toCard = cardRepository.findById(toCard.getId()).orElseThrow();
+        assertEquals(toCardStartBalance, toCard.getBalance());
+    }
+
+    @Test
+    public void transfer_WithMyCardsButOneCardNotExists_ReturnsNotFound() throws Exception {
+        List<Card> cards = addActualCardsToUser(userId);
+        Card fromCard = cards.get(0);
+        int transferedMoney = 500;
+        Integer fromCardStartBalance = fromCard.getBalance();
+
+        CardTransferRequestDto transfer = new CardTransferRequestDto(
+                fromCard.getId(), UUID.randomUUID(), transferedMoney
+        );
+
+        mvc.perform(post("/api/v1/card/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(transfer)))
+                .andExpect(status().isNotFound());
+
+        fromCard = cardRepository.findById(fromCard.getId()).orElseThrow();
+        assertEquals(fromCardStartBalance, fromCard.getBalance());
+    }
+
+    @Test
+    public void transfer_WithMyCardsButOneCardBlocked_ReturnsIAmATeapot() throws Exception {
+        List<Card> cards = addActualCardsToUser(userId);
+        List<Card> cards1 = addBlockedCardsToUser(userId);
+        Card fromCard = cards.get(0);
+        Card toCard = cards1.get(0);
+        int transferedMoney = 500;
+        Integer fromCardStartBalance = fromCard.getBalance();
+        Integer toCardStartBalance = toCard.getBalance();
+
+        CardTransferRequestDto transfer = new CardTransferRequestDto(
+                fromCard.getId(), toCard.getId(), transferedMoney
+        );
+
+        mvc.perform(post("/api/v1/card/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(transfer)))
+                .andExpect(status().isIAmATeapot());
+
+        fromCard = cardRepository.findById(fromCard.getId()).orElseThrow();
+        assertEquals(fromCardStartBalance, fromCard.getBalance());
+        toCard = cardRepository.findById(toCard.getId()).orElseThrow();
+        assertEquals(toCardStartBalance, toCard.getBalance());
+    }
+
+    @Test
+    public void transfer_WithMyCardsButOneCardExpired_ReturnsIAmATeapot() throws Exception {
+        List<Card> cards = addActualCardsToUser(userId);
+        List<Card> cards1 = addExpiresCardsToUser(userId);
+        Card fromCard = cards.get(0);
+        Card toCard = cards1.get(0);
+        int transferedMoney = 500;
+        Integer fromCardStartBalance = fromCard.getBalance();
+        Integer toCardStartBalance = toCard.getBalance();
+
+        CardTransferRequestDto transfer = new CardTransferRequestDto(
+                fromCard.getId(), toCard.getId(), transferedMoney
+        );
+
+        mvc.perform(post("/api/v1/card/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(transfer)))
+                .andExpect(status().isIAmATeapot());
+
+        fromCard = cardRepository.findById(fromCard.getId()).orElseThrow();
+        assertEquals(fromCardStartBalance, fromCard.getBalance());
+        toCard = cardRepository.findById(toCard.getId()).orElseThrow();
+        assertEquals(toCardStartBalance, toCard.getBalance());
+    }
+
+    @Test
+    public void transfer_WithOneNotMyCard_ReturnsForbidden() throws Exception {
+        List<Card> cards = addActualCardsToUser(userId);
+
+
+        Card fromCard = cards.get(0);
+        Card toCard = getOtherUserCard();
+        int transferedMoney = 500;
+        Integer fromCardStartBalance = fromCard.getBalance();
+        Integer toCardStartBalance = toCard.getBalance();
+
+        CardTransferRequestDto transfer = new CardTransferRequestDto(
+                fromCard.getId(), toCard.getId(), transferedMoney
+        );
+
+        mvc.perform(post("/api/v1/card/transfer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(transfer)))
+                .andExpect(status().isForbidden());
+
+        fromCard = cardRepository.findById(fromCard.getId()).orElseThrow();
+        assertEquals(fromCardStartBalance, fromCard.getBalance());
+        toCard = cardRepository.findById(toCard.getId()).orElseThrow();
+        assertEquals(toCardStartBalance, toCard.getBalance());
+    }
+
+    private Card getOtherUserCard() {
+        UUID someUserInDB = createSomeUsersInDB(1, "code").get(0);
+        List<Card> cards = addActualCardsToUser(someUserInDB);
+        return cards.get(0);
     }
 }

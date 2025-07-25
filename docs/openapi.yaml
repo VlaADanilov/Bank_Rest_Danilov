@@ -1,13 +1,8 @@
 {
   "openapi": "3.1.0",
-  "info": {
-    "title": "OpenAPI definition",
-    "version": "v0"
-  },
   "servers": [
     {
-      "url": "http://localhost:8080",
-      "description": "Generated server url"
+      "url": "http://localhost:8080"
     }
   ],
   "tags": [
@@ -66,19 +61,6 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "Пользователи успешно получены",
             "content": {
@@ -98,8 +80,23 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Некорректные данные запроса",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageUserResponseDto"
+                }
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -119,21 +116,19 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
+          "500": {
+            "description": "Внутренняя ошибка сервера",
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
+                  "type": "string",
+                  "format": "uuid"
                 }
               }
             }
           },
-          "500": {
-            "description": "Внутренняя ошибка сервера",
+          "400": {
+            "description": "Некорректные данные запроса",
             "content": {
               "*/*": {
                 "schema": {
@@ -154,7 +149,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/user/login": {
@@ -176,21 +176,18 @@
           "required": true
         },
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
+          "500": {
+            "description": "Внутренняя ошибка сервера",
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
+                  "$ref": "#/components/schemas/JwtResponseDto"
                 }
               }
             }
           },
-          "500": {
-            "description": "Внутренняя ошибка сервера",
+          "400": {
+            "description": "Некорректные данные запроса",
             "content": {
               "*/*": {
                 "schema": {
@@ -209,7 +206,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/card/transfer": {
@@ -231,29 +233,24 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
-                }
-              }
-            }
-          },
           "418": {
             "description": "Недостаточно средств для совершения операции"
           },
           "500": {
             "description": "Внутренняя ошибка сервера"
           },
+          "400": {
+            "description": "Некорректные данные запроса"
+          },
           "200": {
-            "description": "Карты успешно получены"
+            "description": "Деньги успешно переведены"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/admin/card": {
@@ -314,21 +311,18 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
+          "500": {
+            "description": "Внутренняя ошибка сервера",
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
+                  "$ref": "#/components/schemas/PageCardSmallResponseDto"
                 }
               }
             }
           },
-          "500": {
-            "description": "Внутренняя ошибка сервера",
+          "400": {
+            "description": "Некорректные данные запроса",
             "content": {
               "*/*": {
                 "schema": {
@@ -357,7 +351,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -377,21 +376,19 @@
           "required": true
         },
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
+          "500": {
+            "description": "Внутренняя ошибка сервера",
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
+                  "type": "string",
+                  "format": "uuid"
                 }
               }
             }
           },
-          "500": {
-            "description": "Внутренняя ошибка сервера",
+          "400": {
+            "description": "Некорректные данные запроса",
             "content": {
               "*/*": {
                 "schema": {
@@ -412,7 +409,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/admin/block/{id}": {
@@ -435,19 +437,6 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
-                }
-              }
-            }
-          },
           "404": {
             "description": "Карта не найдена"
           },
@@ -456,8 +445,16 @@
           },
           "500": {
             "description": "Внутренняя ошибка сервера"
+          },
+          "400": {
+            "description": "Некорректные данные запроса"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/admin/active/{id}": {
@@ -489,19 +486,6 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "Карта успешно активирована"
           },
@@ -510,8 +494,16 @@
           },
           "500": {
             "description": "Внутренняя ошибка сервера"
+          },
+          "400": {
+            "description": "Некорректные данные запроса"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/card": {
@@ -563,21 +555,18 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
+          "500": {
+            "description": "Внутренняя ошибка сервера",
             "content": {
               "*/*": {
                 "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
+                  "$ref": "#/components/schemas/PageCardSmallResponseDto"
                 }
               }
             }
           },
-          "500": {
-            "description": "Внутренняя ошибка сервера",
+          "400": {
+            "description": "Некорректные данные запроса",
             "content": {
               "*/*": {
                 "schema": {
@@ -596,7 +585,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/card/{id}": {
@@ -619,19 +613,6 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "Информация о карте получена",
             "content": {
@@ -652,6 +633,16 @@
               }
             }
           },
+          "400": {
+            "description": "Некорректные данные запроса",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/CardHugeResponseDto"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Карта не существует",
             "content": {
@@ -662,7 +653,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "delete": {
         "tags": [
@@ -683,19 +679,6 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "Запрос успешно отправлен",
             "content": {
@@ -718,6 +701,17 @@
               }
             }
           },
+          "400": {
+            "description": "Некорректные данные запроса",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
           "404": {
             "description": "Карта не существует",
             "content": {
@@ -729,7 +723,12 @@
               }
             }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/admin/requestsToBlock": {
@@ -765,19 +764,6 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
-                }
-              }
-            }
-          },
           "200": {
             "description": "Запросы успешно получены",
             "content": {
@@ -797,8 +783,23 @@
                 }
               }
             }
+          },
+          "400": {
+            "description": "Некорректные данные запроса",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageRequestToBlockResponseDto"
+                }
+              }
+            }
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/user/{id}": {
@@ -821,29 +822,24 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
-                }
-              }
-            }
-          },
           "404": {
             "description": "Пользователь не найден"
           },
           "500": {
             "description": "Внутренняя ошибка сервера"
           },
+          "400": {
+            "description": "Некорректные данные запроса"
+          },
           "200": {
             "description": "Пользователь удалён"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     },
     "/api/v1/card/card/{id}": {
@@ -866,21 +862,11 @@
           }
         ],
         "responses": {
-          "400": {
-            "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object",
-                  "additionalProperties": {
-
-                  }
-                }
-              }
-            }
-          },
           "500": {
             "description": "Внутренняя ошибка сервера"
+          },
+          "400": {
+            "description": "Некорректные данные запроса"
           },
           "200": {
             "description": "Карта успешно удалена"
@@ -888,7 +874,12 @@
           "404": {
             "description": "Карта не существует"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       }
     }
   },
@@ -1015,6 +1006,9 @@
             "type": "integer",
             "format": "int32"
           },
+          "pageable": {
+            "$ref": "#/components/schemas/Pageablenull"
+          },
           "size": {
             "type": "integer",
             "format": "int32"
@@ -1032,18 +1026,15 @@
           "sort": {
             "$ref": "#/components/schemas/Sortnull"
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageable": {
-            "$ref": "#/components/schemas/Pageablenull"
           },
           "empty": {
             "type": "boolean"
@@ -1053,20 +1044,20 @@
       "Pageablenull": {
         "type": "object",
         "properties": {
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
           "offset": {
             "type": "integer",
             "format": "int64"
           },
           "sort": {
             "$ref": "#/components/schemas/Sortnull"
-          },
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageSize": {
-            "type": "integer",
-            "format": "int32"
           },
           "paged": {
             "type": "boolean"
@@ -1082,10 +1073,10 @@
           "empty": {
             "type": "boolean"
           },
-          "unsorted": {
+          "sorted": {
             "type": "boolean"
           },
-          "sorted": {
+          "unsorted": {
             "type": "boolean"
           }
         }
@@ -1121,6 +1112,10 @@
       "CardSmallResponseDto": {
         "type": "object",
         "properties": {
+          "cardId": {
+            "type": "string",
+            "format": "uuid"
+          },
           "cardNumber": {
             "type": "string"
           },
@@ -1149,6 +1144,9 @@
             "type": "integer",
             "format": "int32"
           },
+          "pageable": {
+            "$ref": "#/components/schemas/Pageablenull"
+          },
           "size": {
             "type": "integer",
             "format": "int32"
@@ -1166,18 +1164,15 @@
           "sort": {
             "$ref": "#/components/schemas/Sortnull"
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageable": {
-            "$ref": "#/components/schemas/Pageablenull"
           },
           "empty": {
             "type": "boolean"
@@ -1187,6 +1182,10 @@
       "CardHugeResponseDto": {
         "type": "object",
         "properties": {
+          "cardId": {
+            "type": "string",
+            "format": "uuid"
+          },
           "cardNumb": {
             "type": "string"
           },
@@ -1223,6 +1222,9 @@
             "type": "integer",
             "format": "int32"
           },
+          "pageable": {
+            "$ref": "#/components/schemas/Pageablenull"
+          },
           "size": {
             "type": "integer",
             "format": "int32"
@@ -1240,18 +1242,15 @@
           "sort": {
             "$ref": "#/components/schemas/Sortnull"
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageable": {
-            "$ref": "#/components/schemas/Pageablenull"
           },
           "empty": {
             "type": "boolean"
@@ -1270,6 +1269,14 @@
             "format": "uuid"
           }
         }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "in": "header",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

@@ -20,6 +20,6 @@ public class UserReturner {
     public Role getUserRole() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         GrantedAuthority next = auth.getAuthorities().iterator().next();
-        return Role.valueOf(next.getAuthority());
+        return Role.valueOf(next.getAuthority().replace("ROLE_", ""));
     }
 }

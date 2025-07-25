@@ -1,74 +1,76 @@
 package com.example.bankcards.advice;
 
 
-import com.example.bankcards.entity.validation.Violation;
 import com.example.bankcards.exception.ServiceException;
-import jakarta.servlet.http.HttpServletRequest;
+import com.example.bankcards.exception.util.ErrorMessage;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.web.error.ErrorAttributeOptions;
-import org.springframework.boot.web.servlet.error.DefaultErrorAttributes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
 
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
 public class GlobalExceptionHandler {
-    private final DefaultErrorAttributes errorAttributes;
+    @ExceptionHandler({ServiceException.class})
+    public ResponseEntity<ErrorMessage> returnErrorMessage(ServiceException ex, WebRequest request) {
+        return ResponseEntity
+                .status(ex.getHttpStatus())
+                .body(
+                        ErrorMessage.builder()
+                                .path(((ServletWebRequest) request).getRequest().getRequestURI())
+                                .statusCode(ex.getHttpStatus().value())
+                                .message(ex.getMessage())
+                                .build()
+                );
+    }
 
-    @ResponseBody
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler(BindException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Map<String, Object>> onConstraintValidationException(
-            HttpServletRequest request,
-            ConstraintViolationException ex
-    ) {
-        final List<Violation> violations = ex.getConstraintViolations().stream()
-                .map(
-                        violation -> {
-                            Violation v = new Violation();
-                            v.setMessage(violation.getMessage());
-                            String[] s = violation.getPropertyPath().toString().split("\\.");
-                            v.setFieldName(s[s.length - 1]);
-                            return v;
-                        }
-                ).toList();
-        return createJsonResponse(request, HttpStatus.BAD_REQUEST, null, violations);
-    }
-    @ExceptionHandler(ServiceException.class)
-    public ResponseEntity<Map<String, Object>> exception(HttpServletRequest request,ServiceException e) {
-        return createJsonResponse(request, e.getHttpStatus(), e.getMessage(), null);
+    public ErrorMessage handlerBindException(BindException ex, WebRequest request) {
+        ErrorMessage.ErrorMessageBuilder builder = ErrorMessage.builder()
+                .path(((ServletWebRequest) request).getRequest().getRequestURI())
+                .statusCode(HttpStatus.BAD_REQUEST.value());
+        if (!ex.getBindingResult().getFieldErrors().isEmpty()) {
+            builder.errors(ex.getBindingResult().getFieldErrors().stream()
+                    .filter(field -> field.getDefaultMessage() != null)
+                    .collect(Collectors.toMap(FieldError::getField, FieldError::getDefaultMessage)));
+        } else if (ex.getGlobalError() != null) {
+            return builder.message(ex.getGlobalError().getDefaultMessage()).build();
+        }
+        return builder.build();
     }
 
-    private ResponseEntity<Map<String, Object>> createJsonResponse(
-            HttpServletRequest httpRequest,
-            HttpStatus status,
-            String message,
-            List<Violation> violations
-    ) {
-        WebRequest request = new ServletWebRequest(httpRequest);
-        Map<String, Object> errorAttr = this.errorAttributes.getErrorAttributes(
-                request,
-                ErrorAttributeOptions.defaults()
-        );
-        errorAttr.put("status", status.value());
-        errorAttr.put("error", status.getReasonPhrase());
-        if (message != null) {
-            errorAttr.put("message", message);
-        }
-        errorAttr.put("path", httpRequest.getRequestURI());
-        if (violations != null && !violations.isEmpty()) {
-            errorAttr.put("violations", violations);
-        }
-        return ResponseEntity.status(status).body(errorAttr);
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<Map<String, String>> handleValidationExceptions(MethodArgumentNotValidException ex) {
+        Map<String, String> exceptions = new HashMap<>();
+        ex.getBindingResult().getAllErrors().forEach((error) -> {
+            String fieldName = ((FieldError) error).getField();
+            String errorMessage = error.getDefaultMessage();
+            exceptions.put(fieldName, errorMessage);
+        });
+        return new ResponseEntity<>(exceptions, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Map<String, String>> handleConstraintViolationException(ConstraintViolationException ex) {
+        Map<String, String> exceptions = new HashMap<>();
+        ex.getConstraintViolations().forEach(cv -> {
+            String fieldName = cv.getPropertyPath().toString();
+            String errorMessage = cv.getMessage();
+            exceptions.put(fieldName, errorMessage);
+        });
+        return new ResponseEntity<>(exceptions, HttpStatus.BAD_REQUEST);
     }
 }

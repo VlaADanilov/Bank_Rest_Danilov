@@ -8,6 +8,7 @@ import java.util.UUID;
 
 @Builder
 public record CardHugeResponseDto(
+        UUID cardId,
         String cardNumb,
         LocalDate expiresAt,
         CardStatus status,

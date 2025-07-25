@@ -7,10 +7,7 @@ import com.example.bankcards.dto.response.CardSmallResponseDto;
 import com.example.bankcards.entity.Card;
 import com.example.bankcards.entity.enums.CardStatus;
 import com.example.bankcards.entity.enums.Role;
-import com.example.bankcards.exception.CardAlreadyExistsException;
-import com.example.bankcards.exception.CardNotFoundException;
-import com.example.bankcards.exception.InsufficientFundsException;
-import com.example.bankcards.exception.UserNotFoundException;
+import com.example.bankcards.exception.*;
 import com.example.bankcards.mapper.CardMapper;
 import com.example.bankcards.repository.BlockRepository;
 import com.example.bankcards.repository.CardRepository;
@@ -23,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
@@ -36,7 +34,6 @@ public class CardServiceImpl implements CardService {
     private final UserRepository userRepository;
     private final CardMapper cardMapper;
     private final BlockRepository blockRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Page<CardSmallResponseDto> getCards(Pageable of, List<CardStatus> filter, UUID userId) {
@@ -64,11 +61,17 @@ public class CardServiceImpl implements CardService {
      * Здесь обязательно нужно работать в рамках транзакции
      */
     @Override
-    @Transactional
+    @Transactional(isolation = Isolation.REPEATABLE_READ)
     public void transferMoney(CardTransferRequestDto requestDto, UUID userId) {
         Card fromCard = getCardWithCheckAccessWithoutAdmin(requestDto.fromCard(), userId);
         Card toCard = getCardWithCheckAccessWithoutAdmin(requestDto.toCard(), userId);
-
+        if (fromCard.getStatus() != CardStatus.ACTIVE || toCard.getStatus() != CardStatus.ACTIVE) {
+            throw new CardNotActiveException(
+                    !fromCard.getStatus().equals(CardStatus.ACTIVE) ?
+                            fromCard.getId() :
+                            toCard.getId()
+            );
+        }
         if (fromCard.getBalance() < requestDto.money()) {
             throw new InsufficientFundsException();
         }
@@ -89,7 +92,7 @@ public class CardServiceImpl implements CardService {
             throw new CardAlreadyExistsException(card.cardNumber());
         }
         Card build = Card.builder()
-                .cardNumber(passwordEncoder.encode(card.cardNumber()))
+                .cardNumber(card.cardNumber())
                 .expiryDate(card.expiryDate())
                 .user(userRepository.findById(card.userId()).orElseThrow(
                         () -> new UserNotFoundException(card.userId())

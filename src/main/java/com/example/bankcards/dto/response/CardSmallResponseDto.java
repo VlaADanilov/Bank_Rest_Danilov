@@ -7,6 +7,7 @@ import java.util.UUID;
 
 @Builder
 public record CardSmallResponseDto(
+        UUID cardId,
         String cardNumber,
         CardStatus cardStatus,
         UUID userId

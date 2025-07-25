@@ -1,7 +1,7 @@
 app:
   security:
 #    В миллисекундах
-    expiration: 6000000
+    expiration: 60000000
     private-key: "-----BEGIN PRIVATE KEY-----
   MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDNGKvSkv8Wyhxo
   Tb7fiHGQnLtN+S4mJ9EXKLCQK8vMpEszoX1WRnTtJgYUqejuPhJqQCm6qzxcK90V

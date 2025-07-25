@@ -7,6 +7,7 @@ import com.example.bankcards.entity.enums.CardStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -26,6 +27,7 @@ import java.util.UUID;
         @ApiResponse(responseCode = "400", description = "Некорректные данные запроса"),
         @ApiResponse(responseCode = "500", description = "Внутренняя ошибка сервера")
 })
+@SecurityRequirement(name = "bearerAuth")
 public interface CardApi {
 
     @Operation(
@@ -75,7 +77,7 @@ public interface CardApi {
     Этот метод позволяет отправить деньги между своими счетами"""
     )
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Карты успешно получены"),
+            @ApiResponse(responseCode = "200", description = "Деньги успешно переведены"),
             @ApiResponse(responseCode = "418", description = "Недостаточно средств для совершения операции"),
     })
     void transferMoney(@Valid CardTransferRequestDto requestDto);

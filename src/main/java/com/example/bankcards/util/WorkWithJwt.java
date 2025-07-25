@@ -38,8 +38,9 @@ public class WorkWithJwt {
     }
 
     public Role getRoleFromToken(String token) {
-        return extractClaim(token,
-                (claims) -> claims.get("role", Role.class));
+        String string = extractClaim(token,
+                (claims) -> claims.get("role", String.class));
+        return Role.valueOf(string);
     }
 
     public boolean validateToken(String token) {

@@ -4,13 +4,17 @@ import com.example.bankcards.dto.response.CardHugeResponseDto;
 import com.example.bankcards.dto.response.CardSmallResponseDto;
 import com.example.bankcards.entity.Card;
 import com.example.bankcards.mapper.CardMapper;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class CardMapperImpl implements CardMapper {
+
     @Override
     public CardHugeResponseDto toCardHugeResponseDto(Card card) {
         return CardHugeResponseDto.builder()
+                .cardId(card.getId())
                 .cardNumb(getEncryptedCardNumber(card.getCardNumber()))
                 .money(card.getBalance())
                 .status(card.getStatus())
@@ -19,7 +23,7 @@ public class CardMapperImpl implements CardMapper {
                 .build();
     }
 
-    private static String getEncryptedCardNumber(String number) {
+    private String getEncryptedCardNumber(String number) {
         String lastFour =
                 number.substring(
                         number.length() - 4);
@@ -29,6 +33,7 @@ public class CardMapperImpl implements CardMapper {
     @Override
     public CardSmallResponseDto toCardSmallResponseDto(Card card) {
         return CardSmallResponseDto.builder()
+                .cardId(card.getId())
                 .cardNumber(getEncryptedCardNumber(card.getCardNumber()))
                 .userId(card.getUser().getId())
                 .cardStatus(card.getStatus())

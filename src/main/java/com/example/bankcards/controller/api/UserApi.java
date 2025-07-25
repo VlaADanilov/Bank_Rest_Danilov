@@ -8,6 +8,7 @@ import com.example.bankcards.dto.response.UserResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
@@ -26,6 +27,7 @@ import java.util.UUID;
 @Validated
 @Tag(name = "UserControllerApi",
         description = "API для работы с пользователями и авторизацией")
+@SecurityRequirement(name = "bearerAuth")
 public interface UserApi {
 
     @GetMapping

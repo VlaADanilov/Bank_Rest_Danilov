@@ -4,6 +4,7 @@ import com.example.bankcards.dto.response.RequestToBlockResponseDto;
 import com.example.bankcards.entity.Card;
 import com.example.bankcards.entity.RequestToBlock;
 import com.example.bankcards.exception.CardNotFoundException;
+import com.example.bankcards.exception.RequestAlreadyExistsException;
 import com.example.bankcards.mapper.BlockMapper;
 import com.example.bankcards.repository.BlockRepository;
 import com.example.bankcards.repository.CardRepository;
@@ -30,6 +31,9 @@ public class BlockServiceImpl implements BlockService {
                 .orElseThrow(() -> new CardNotFoundException(id));
         if (!card.getUser().getId().equals(userId)) {
             throw new AccessDeniedException("You don't have permission to block this card");
+        }
+        if (blockRepository.existsByCard(card)) {
+            throw new RequestAlreadyExistsException();
         }
         RequestToBlock block = RequestToBlock.builder()
                 .card(cardRepository.getReferenceById(id))

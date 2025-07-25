@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -37,7 +38,8 @@ public interface AdminApi {
             description = """
     Этот метод позволяет создать карту для пользователя"""
     )
-    @ApiResponse(responseCode = "200", description = "Карта успешно создана")
+    @ApiResponse(responseCode = "201", description = "Карта успешно создана")
+    @ResponseStatus(HttpStatus.CREATED)
     UUID createCard(@RequestBody @Valid CardRequestDto card);
 
     @PostMapping("/block/{id}")

@@ -1,0 +1,53 @@
+spring:
+  liquibase:
+    enabled: false
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: create
+app:
+  security:
+    private-key: "-----BEGIN PRIVATE KEY-----
+    MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCIHM25eIImq9Q4
+    REMZ0jTnkdMzrizBqHSJ7ci2xWqXfUa10YmCyDUJWDy9VlfF0kqy1zqrk7CE3WXR
+    2CqOy+EYXi/QZ2qyvN+QkN8bgoPKCkE3tDq4sDXxvhqBheRNm/3ACseSk/VlxS5o
+    UDEMOs3BAopTUyJR7G0Eye+frfKci01fL6NidWJR8PJ6vfF0VCQ7D50qjfRcciHB
+    itMLj/X/O3mhtQU6DiOd1TzR5fX7Xjfojn+ma9QOD8W8faHTBUJkWRmNnwNwcdlz
+    Lm3vNqNXuE2TptjrTMBvdT3YiSrsNSEXPJqlVn2WhflA2DpZUD2KQ2S2v+bbh54c
+    4wgk4mf3AgMBAAECggEASxu52hLJnxVKchIZBPKeBvrNFMOUJvkR9dqk21Zsz1Nt
+    5X7O5sAbpCBww/oVTTAR0EY8Ndm1mluhh/5E3a9bctrmf5XRpvfaVifbNY77sk2e
+    V2K41JlH6zH/5mE/7iOaDpLkNdo3nAUG6sD1j84TI+KG+hvx4EsajX3xIKgYLJFU
+    CTYxdZnZfiuNxzcv/6rHePUMYhUDjTebZHSlBefOLqRDBzLyg8REp8Oce54XitbJ
+    auh5Mmle1SJL/ehqgEKfIgdglbVL1quFZay7rXHmfuwCammd4aEtQ8UFs4B+nCI9
+    t3e0dri+xarrK2jKpfNAduQQcBQS8Bv5+UxhMDn5gQKBgQC6rrk9yLe9rH5rOZbz
+    xKrQBX55uTAg103AHaQ0cEq6JBMkB4NnBB7RDj1OxYcuzIt4BP8xogLzw4SLQdk6
+    tLAqQsQdTKAPQi9Xf8mn8yvMPcTupZIOleNv6uH1OUY2CyNNTPb5upvFy39EmI57
+    UvZ9GzA7HaodOeJb6gpe4C5MEQKBgQC6pxpEjtDgMYt5gHy1F+12Rkw1iuWsFtTB
+    CNhdzX8GaFIzfGuYjoOix0KAGtl5kEv+mHttM09pZ7qmGsqgMpkrPVA3iexW8fsR
+    N+4mfxp4hZ3ZQ5C5msM5UiEa+VFE7CnMIgLyOMIZAuFvxxh2dhHl9wq6r3NgjS5g
+    Jbg478qbhwKBgH8o/vMv4sCnW6FsI/++CeASrfj6BOeJ4OMpDa3Og4hRhFw5Ze9o
+    5hjeyzH56MAfAi1pse67/ajPmFxHKVIMvCa9Pdr7U9ew7JB8cf8d68p+lMM+MsQO
+    o1KbuviP39x2L8C62Ux4KR1NJU6zX/JvK4lCWNMbvMGVqTOUsyW3LLIRAoGAAWX9
+    GWRkhjl4zQk8ZfLu8YLnUUNgIyDsqSGS1WkTuY2QiBg3iiYPMGoDwofw9yswlpC3
+    5AKNZsHDMTlkKT0Xzq4f6rqaza/0bJWZsColnZ+KpjUOYYWaTtShsN0LUdPfIEtk
+    8EGimqNd4wN/2GtcCPgH2Yw09hU4srm1np+VSgMCgYEAkVoSutWkJ8F+Tr4ZOadU
+    xkZ5oh8gtPbRMBtdnBxSz3ekW4dfT85AodJ8sjG+pTJ9m5jgcaGMgW2iiBOpPYNM
+    VPjYaBDakYgQ8uX26uG+Fy6NoOsAIt8IzNDHkit1ZdpjrBq5DLQxCU+DQq19Xgxx
+    noHEWi1sa6FN6rFuJXYA1o8=
+    -----END PRIVATE KEY-----
+    "
+    public-key: "-----BEGIN PUBLIC KEY-----
+    MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAiBzNuXiCJqvUOERDGdI0
+    55HTM64swah0ie3ItsVql31GtdGJgsg1CVg8vVZXxdJKstc6q5OwhN1l0dgqjsvh
+    GF4v0GdqsrzfkJDfG4KDygpBN7Q6uLA18b4agYXkTZv9wArHkpP1ZcUuaFAxDDrN
+    wQKKU1MiUextBMnvn63ynItNXy+jYnViUfDyer3xdFQkOw+dKo30XHIhwYrTC4/1
+    /zt5obUFOg4jndU80eX1+1436I5/pmvUDg/FvH2h0wVCZFkZjZ8DcHHZcy5t7zaj
+    V7hNk6bY60zAb3U92Ikq7DUhFzyapVZ9loX5QNg6WVA9ikNktr/m24eeHOMIJOJn
+    9wIDAQAB
+    -----END PUBLIC KEY-----"
+    expiration: 6000000

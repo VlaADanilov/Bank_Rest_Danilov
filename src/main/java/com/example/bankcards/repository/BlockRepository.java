@@ -8,4 +8,6 @@ import java.util.UUID;
 
 public interface BlockRepository extends JpaRepository<RequestToBlock, UUID> {
     void deleteByCard(Card card);
+
+    boolean existsByCard(Card card);
 }

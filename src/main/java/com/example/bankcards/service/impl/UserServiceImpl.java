@@ -2,6 +2,7 @@ package com.example.bankcards.service.impl;
 
 import com.example.bankcards.dto.request.UserFilterRequestDto;
 import com.example.bankcards.dto.response.UserResponseDto;
+import com.example.bankcards.exception.UserNotFoundException;
 import com.example.bankcards.mapper.UserMapper;
 import com.example.bankcards.repository.UserRepository;
 import com.example.bankcards.service.UserService;
@@ -20,6 +21,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(UUID id) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException(id);
+        }
         userRepository.deleteById(id);
     }
 

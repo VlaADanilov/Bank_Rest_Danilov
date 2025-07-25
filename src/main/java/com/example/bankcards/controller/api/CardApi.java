@@ -65,7 +65,7 @@ public interface CardApi {
             @ApiResponse(responseCode = "200", description = "Запрос успешно отправлен"),
             @ApiResponse(responseCode = "404", description = "Карта не существует"),
     })
-    @DeleteMapping("/{id}")
+    @PostMapping("/block/{id}")
     @ResponseStatus(HttpStatus.OK)
     UUID requestToBlockCard(@PathVariable("id") UUID id);
 
@@ -91,6 +91,6 @@ public interface CardApi {
             @ApiResponse(responseCode = "200", description = "Карта успешно удалена"),
             @ApiResponse(responseCode = "404", description = "Карта не существует"),
     })
-    @DeleteMapping("/card/{id}")
+    @DeleteMapping("/{id}")
     void deleteCard(@PathVariable("id") UUID id);
 }

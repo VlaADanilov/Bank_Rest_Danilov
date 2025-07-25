@@ -55,16 +55,15 @@ public interface UserApi {
     void deleteUser(@PathVariable("id") UUID id);
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @Operation(
             summary = "Регистрация пользователя в системе",
             description = "Этот метод позволяет зарегистрироваться в системе"
     )
-    @ApiResponse(responseCode = "200", description = "Аккаунт создан")
-    UUID createUser(@Valid UserRequestDto requestDto);
+    @ApiResponse(responseCode = "201", description = "Аккаунт создан")
+    UUID createUser(@RequestBody @Valid UserRequestDto requestDto);
 
     @PostMapping("/login")
-
     @ResponseStatus(HttpStatus.OK)
     @Operation(
             summary = "Вход в систему",

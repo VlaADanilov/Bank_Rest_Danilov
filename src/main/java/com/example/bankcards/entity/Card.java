@@ -2,10 +2,7 @@ package com.example.bankcards.entity;
 
 import com.example.bankcards.entity.enums.CardStatus;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -33,6 +30,7 @@ public class Card {
     @Column(nullable = false)
     private Integer balance;
 
+    @EqualsAndHashCode.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;

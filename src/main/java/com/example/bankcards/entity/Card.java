@@ -20,7 +20,6 @@ public class Card {
     @Column(nullable = false)
     private String cardNumber;
 
-
     @Column(nullable = false)
     private LocalDate expiryDate;
 

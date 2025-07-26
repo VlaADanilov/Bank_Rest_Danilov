@@ -1,6 +1,6 @@
-package com.example.bankcards.config;
+package com.example.bankcards.security;
 
-import com.example.bankcards.config.property.MySecurityProperty;
+import com.example.bankcards.security.property.MySecurityProperty;
 import com.example.bankcards.controller.filter.JwtAuthenticationFilter;
 import com.example.bankcards.entity.enums.Role;
 import lombok.RequiredArgsConstructor;

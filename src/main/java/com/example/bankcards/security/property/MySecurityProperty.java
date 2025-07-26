@@ -1,4 +1,4 @@
-package com.example.bankcards.config.property;
+package com.example.bankcards.security.property;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

@@ -1,6 +1,6 @@
 package com.example.bankcards.service;
 
-import com.example.bankcards.config.property.MySecurityProperty;
+import com.example.bankcards.security.property.MySecurityProperty;
 import com.example.bankcards.entity.enums.Role;
 import com.example.bankcards.util.WorkWithJwt;
 import io.jsonwebtoken.Claims;

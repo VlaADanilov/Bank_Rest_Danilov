@@ -57,3 +57,9 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+logging:
+  file:
+    name: logs/myapp.log
+    path: logs
+  level:
+    root: INFO

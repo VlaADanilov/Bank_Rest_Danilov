@@ -1,6 +1,6 @@
 package com.example.bankcards.util;
 
-import com.example.bankcards.config.property.MySecurityProperty;
+import com.example.bankcards.security.property.MySecurityProperty;
 import com.example.bankcards.entity.enums.Role;
 import org.springframework.stereotype.Component;
 

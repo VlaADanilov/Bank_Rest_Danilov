@@ -24,9 +24,9 @@ docker-compose up --build</p>
 Срок жизни - 10 минут, но в пропертях можно поставить любое время.</p>
 <p>Проверяет на валидность токена самописный филтьтр для Spring Security.</p>
 <p><strong>Я создал аккаунты для вас: 
-1)Role: ADMIN username: admin password: 1234
-1)Role: USER username: 1234 password: 1234
-1)Role: USER username: test password: 1234</strong></p>
+1)>✅Role: ADMIN | username: admin | password: 1234
+2)>✅Role: USER  | username: 1234 | password: 1234
+3)>✅Role: USER | username: test | password: 1234</strong></p>
 
 <h2>✅ Пройдёмся по возможностям </h2>
 <strong>Администратор:</strong>

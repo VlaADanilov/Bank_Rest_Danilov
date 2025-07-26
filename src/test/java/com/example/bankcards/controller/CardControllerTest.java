@@ -31,7 +31,7 @@ public class CardControllerTest extends AbstractTest {
     public void clearBefore() {
         clearAfter();
         List<UUID> someUsersInDB = createSomeUsersInDB(1);
-        userId = someUsersInDB.get(0);
+        userId = someUsersInDB.getFirst();
         authentificateAsUser(userId);
     }
 

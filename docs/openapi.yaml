@@ -52,11 +52,11 @@
             }
           },
           {
-            "name": "filter",
+            "name": "partOfUsername",
             "in": "query",
-            "required": true,
+            "required": false,
             "schema": {
-              "$ref": "#/components/schemas/UserFilterRequestDto"
+              "type": "string"
             }
           }
         ],
@@ -105,17 +105,28 @@
         "summary": "Регистрация пользователя в системе",
         "description": "Этот метод позволяет зарегистрироваться в системе",
         "operationId": "createUser",
-        "parameters": [
-          {
-            "name": "requestDto",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/UserRequestDto"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRequestDto"
+              }
             }
-          }
-        ],
+          },
+          "required": true
+        },
         "responses": {
+          "201": {
+            "description": "Аккаунт создан",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
           "500": {
             "description": "Внутренняя ошибка сервера",
             "content": {
@@ -129,17 +140,6 @@
           },
           "400": {
             "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Аккаунт создан",
             "content": {
               "*/*": {
                 "schema": {
@@ -222,16 +222,16 @@
         "summary": "Отправить деньги между своими счетами",
         "description": "Этот метод позволяет отправить деньги между своими счетами",
         "operationId": "transferMoney",
-        "parameters": [
-          {
-            "name": "requestDto",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/CardTransferRequestDto"
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CardTransferRequestDto"
+              }
             }
-          }
-        ],
+          },
+          "required": true
+        },
         "responses": {
           "418": {
             "description": "Недостаточно средств для совершения операции"
@@ -244,6 +244,78 @@
           },
           "200": {
             "description": "Деньги успешно переведены"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/api/v1/card/block/{id}": {
+      "post": {
+        "tags": [
+          "CardControllerApi"
+        ],
+        "summary": "Запрос на блокировку карты",
+        "description": "Этот метод позволяет отправить запрос на блокировку карты",
+        "operationId": "requestToBlockCard",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Запрос успешно отправлен",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Внутренняя ошибка сервера",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Некорректные данные запроса",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Карта не существует",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "type": "string",
+                  "format": "uuid"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -398,7 +470,7 @@
               }
             }
           },
-          "200": {
+          "201": {
             "description": "Карта успешно создана",
             "content": {
               "*/*": {
@@ -664,9 +736,9 @@
         "tags": [
           "CardControllerApi"
         ],
-        "summary": "Запрос на блокировку карты",
-        "description": "Этот метод позволяет отправить запрос на блокировку карты",
-        "operationId": "requestToBlockCard",
+        "summary": "Удалить карту",
+        "description": "Этот метод позволяет удалить карту",
+        "operationId": "deleteCard",
         "parameters": [
           {
             "name": "id",
@@ -679,49 +751,17 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "Запрос успешно отправлен",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              }
-            }
-          },
           "500": {
-            "description": "Внутренняя ошибка сервера",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              }
-            }
+            "description": "Внутренняя ошибка сервера"
           },
           "400": {
-            "description": "Некорректные данные запроса",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              }
-            }
+            "description": "Некорректные данные запроса"
+          },
+          "200": {
+            "description": "Карта успешно удалена"
           },
           "404": {
-            "description": "Карта не существует",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "string",
-                  "format": "uuid"
-                }
-              }
-            }
+            "description": "Карта не существует"
           }
         },
         "security": [
@@ -841,46 +881,6 @@
           }
         ]
       }
-    },
-    "/api/v1/card/card/{id}": {
-      "delete": {
-        "tags": [
-          "CardControllerApi"
-        ],
-        "summary": "Удалить карту",
-        "description": "Этот метод позволяет удалить карту",
-        "operationId": "deleteCard",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            }
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Внутренняя ошибка сервера"
-          },
-          "400": {
-            "description": "Некорректные данные запроса"
-          },
-          "200": {
-            "description": "Карта успешно удалена"
-          },
-          "404": {
-            "description": "Карта не существует"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
     }
   },
   "components": {
@@ -987,14 +987,6 @@
           }
         }
       },
-      "UserFilterRequestDto": {
-        "type": "object",
-        "properties": {
-          "partOfUsername": {
-            "type": "string"
-          }
-        }
-      },
       "PageUserResponseDto": {
         "type": "object",
         "properties": {
@@ -1005,9 +997,6 @@
           "totalPages": {
             "type": "integer",
             "format": "int32"
-          },
-          "pageable": {
-            "$ref": "#/components/schemas/Pageablenull"
           },
           "size": {
             "type": "integer",
@@ -1030,6 +1019,9 @@
             "type": "integer",
             "format": "int32"
           },
+          "pageable": {
+            "$ref": "#/components/schemas/Pageablenull"
+          },
           "first": {
             "type": "boolean"
           },
@@ -1044,14 +1036,6 @@
       "Pageablenull": {
         "type": "object",
         "properties": {
-          "pageSize": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
           "offset": {
             "type": "integer",
             "format": "int64"
@@ -1061,6 +1045,14 @@
           },
           "paged": {
             "type": "boolean"
+          },
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
           },
           "unpaged": {
             "type": "boolean"
@@ -1144,9 +1136,6 @@
             "type": "integer",
             "format": "int32"
           },
-          "pageable": {
-            "$ref": "#/components/schemas/Pageablenull"
-          },
           "size": {
             "type": "integer",
             "format": "int32"
@@ -1167,6 +1156,9 @@
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/Pageablenull"
           },
           "first": {
             "type": "boolean"
@@ -1222,9 +1214,6 @@
             "type": "integer",
             "format": "int32"
           },
-          "pageable": {
-            "$ref": "#/components/schemas/Pageablenull"
-          },
           "size": {
             "type": "integer",
             "format": "int32"
@@ -1245,6 +1234,9 @@
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/Pageablenull"
           },
           "first": {
             "type": "boolean"

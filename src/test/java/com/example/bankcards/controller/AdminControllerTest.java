@@ -45,20 +45,20 @@ public class AdminControllerTest extends AbstractTest {
 
     @Test
     public void getRequests_ReturnsAllRequests() {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addActualCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addActualCardsToUser(userId).getFirst();
         RequestToBlock requestToBlock = createRequestToBlock(card.getId());
 
         Page<RequestToBlockResponseDto> requests = adminController.getRequests(0, 1);
         assertEquals(1, requests.getTotalElements());
-        assertEquals(requestToBlock.getId(), requests.getContent().get(0).id());
+        assertEquals(requestToBlock.getId(), requests.getContent().getFirst().id());
     }
 
     @Test
     @Transactional
     public void blockCard_WithCorrectId_returnsOkAndBlockedCardAndDeleteRequestToBlock() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addActualCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addActualCardsToUser(userId).getFirst();
         RequestToBlock requestToBlock = createRequestToBlock(card.getId());
 
         mvc.perform(post("/api/v1/admin/block/" + card.getId()))
@@ -72,8 +72,8 @@ public class AdminControllerTest extends AbstractTest {
     @Test
     @Transactional
     public void blockCard_WithCorrectIdWithoutRequestToBlock_returnsOkAndBlockedCard() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addActualCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addActualCardsToUser(userId).getFirst();
 
         mvc.perform(post("/api/v1/admin/block/" + card.getId()))
                 .andExpect(status().isOk());
@@ -86,8 +86,8 @@ public class AdminControllerTest extends AbstractTest {
     @Test
     @Transactional
     public void blockCard_WithBlockedCard_returnsOkAndBlockedCard() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addBlockedCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addBlockedCardsToUser(userId).getFirst();
 
         mvc.perform(post("/api/v1/admin/block/" + card.getId()))
                 .andExpect(status().isOk());
@@ -99,8 +99,8 @@ public class AdminControllerTest extends AbstractTest {
     @Test
     @Transactional
     public void blockCard_WithExpiredCard_returnsOkAndBlockedCard() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addExpiresCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addExpiresCardsToUser(userId).getFirst();
 
         mvc.perform(post("/api/v1/admin/block/" + card.getId()))
                 .andExpect(status().isOk());
@@ -118,8 +118,8 @@ public class AdminControllerTest extends AbstractTest {
     @Test
     @Transactional
     public void activateCard_WithBlockedCard_returnsOkAndActivateCard() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addBlockedCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addBlockedCardsToUser(userId).getFirst();
         LocalDate localDate = LocalDate.now().plusMonths(2);
         mvc.perform(post("/api/v1/admin/active/" + card.getId())
                         .param("expiryDate", localDate.toString()))
@@ -133,8 +133,8 @@ public class AdminControllerTest extends AbstractTest {
     @Test
     @Transactional
     public void activateCard_WithExpiresCard_returnsOkAndActivateCard() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addExpiresCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addExpiresCardsToUser(userId).getFirst();
         LocalDate localDate = LocalDate.now().plusMonths(2);
         mvc.perform(post("/api/v1/admin/active/" + card.getId())
                         .param("expiryDate", localDate.toString()))
@@ -148,8 +148,8 @@ public class AdminControllerTest extends AbstractTest {
     @Test
     @Transactional
     public void activateCard_WithActiveCard_returnsOkAndActivateCard() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addActualCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addActualCardsToUser(userId).getFirst();
         LocalDate localDate = LocalDate.now().plusMonths(2);
         mvc.perform(post("/api/v1/admin/active/" + card.getId())
                         .param("expiryDate", localDate.toString()))
@@ -182,7 +182,7 @@ public class AdminControllerTest extends AbstractTest {
     @Test
     @Transactional
     public void createCard_WithCorrectData_returnsCreatedAndSavedCard() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
 
         CardRequestDto cardRequestDto = new CardRequestDto(
                 "1234567890123456",
@@ -207,7 +207,7 @@ public class AdminControllerTest extends AbstractTest {
 
     @Test
     public void createCard_WithInCorrectCardNumber_returnsBadRequest() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
 
         CardRequestDto cardRequestDto = new CardRequestDto(
                 "1234567890123456youl",
@@ -223,7 +223,7 @@ public class AdminControllerTest extends AbstractTest {
 
     @Test
     public void createCard_WithInCorrectExpiryDate_returnsBadRequest() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
 
         CardRequestDto cardRequestDto = new CardRequestDto(
                 "1234567890123456",
@@ -239,8 +239,8 @@ public class AdminControllerTest extends AbstractTest {
 
     @Test
     public void createCard_WithExistsCardNumber_returnsBadRequest() throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addActualCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addActualCardsToUser(userId).getFirst();
         CardRequestDto cardRequestDto = new CardRequestDto(
                 card.getCardNumber(),
                 LocalDate.now().minusDays(3),
@@ -339,12 +339,12 @@ public class AdminControllerTest extends AbstractTest {
             allCardsInDB.addAll(addExpiresCardsToUser(userId).stream().map(Card::getId).toList());
         }
 
-        Page<CardSmallResponseDto> cards = adminController.getCards(0, 27, getAllCardStatuses(), someUsersInDB.get(0));
+        Page<CardSmallResponseDto> cards = adminController.getCards(0, 27, getAllCardStatuses(), someUsersInDB.getFirst());
         assertEquals(9, cards.getContent().size());
         assertEquals(1, cards.getTotalPages());
 
         for (CardSmallResponseDto card : cards.getContent()) {
-            if (!card.userId().equals(someUsersInDB.get(0))) {
+            if (!card.userId().equals(someUsersInDB.getFirst())) {
                 fail();
             }
         }
@@ -360,12 +360,12 @@ public class AdminControllerTest extends AbstractTest {
             allCardsInDB.addAll(addExpiresCardsToUser(userId).stream().map(Card::getId).toList());
         }
 
-        Page<CardSmallResponseDto> cards = adminController.getCards(0, 27, List.of(CardStatus.ACTIVE), someUsersInDB.get(0));
+        Page<CardSmallResponseDto> cards = adminController.getCards(0, 27, List.of(CardStatus.ACTIVE), someUsersInDB.getFirst());
         assertEquals(3, cards.getContent().size());
         assertEquals(1, cards.getTotalPages());
 
         for (CardSmallResponseDto card : cards.getContent()) {
-            if (!card.userId().equals(someUsersInDB.get(0)) || card.cardStatus() != CardStatus.ACTIVE) {
+            if (!card.userId().equals(someUsersInDB.getFirst()) || card.cardStatus() != CardStatus.ACTIVE) {
                 fail();
             }
         }

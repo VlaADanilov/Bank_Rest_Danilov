@@ -51,7 +51,7 @@ spring:
     driver-class-name: org.postgresql.Driver
     username: postgres
     password: root
-    url: jdbc:postgresql://localhost:5432/bank_rest_danilov
+    url: jdbc:postgresql://db:5432/bank_rest_danilov
   jpa:
     hibernate:
       ddl-auto: validate

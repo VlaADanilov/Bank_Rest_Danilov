@@ -53,7 +53,7 @@ public class UserControllerTest extends AbstractTest {
     public void delete_WithExistsUUID_ReturnsOkAndDeleteUser() throws Exception {
         int count = 3;
         List<UUID> someUsersInDB = createSomeUsersInDB(count);
-        UUID idToDelete = someUsersInDB.get(0);
+        UUID idToDelete = someUsersInDB.getFirst();
 
         mvc.perform(delete("/api/v1/user/" + idToDelete))
                 .andExpect(status().isOk());
@@ -67,7 +67,7 @@ public class UserControllerTest extends AbstractTest {
         authentificateAsUser();
         int count = 3;
         List<UUID> someUsersInDB = createSomeUsersInDB(count);
-        UUID idToDelete = someUsersInDB.get(0);
+        UUID idToDelete = someUsersInDB.getFirst();
 
         mvc.perform(delete("/api/v1/user/" + idToDelete))
                 .andExpect(status().isForbidden());
@@ -107,7 +107,7 @@ public class UserControllerTest extends AbstractTest {
                 userController.getUsers(0, 5, "Vla");
 
         assertEquals(1, users.getContent().size());
-        assertEquals(individual, users.getContent().get(0).id());
+        assertEquals(individual, users.getContent().getFirst().id());
     }
 
     private UUID saveUserToDB(String username, String password) {

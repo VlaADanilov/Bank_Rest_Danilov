@@ -28,8 +28,8 @@ public class FilterTest extends AbstractTest {
 
     @Test
     public void getCardInfo_WithMyCardId_ReturnsOk () throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addActualCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addActualCardsToUser(userId).getFirst();
         Role role = Role.USER;
         String accessToken = workWithJwt.generateAccessToken(userId, role);
 
@@ -40,8 +40,8 @@ public class FilterTest extends AbstractTest {
 
     @Test
     public void getCardInfo_WithNotMyCardId_ReturnsForbidden () throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addActualCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addActualCardsToUser(userId).getFirst();
         Role role = Role.USER;
         String accessToken = workWithJwt.generateAccessToken(UUID.randomUUID(), role);
 
@@ -52,8 +52,8 @@ public class FilterTest extends AbstractTest {
 
     @Test
     public void getCardInfo_WithNotMyCardIdButMyRoleIsAdmin_ReturnsOk () throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addActualCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addActualCardsToUser(userId).getFirst();
         Role role = Role.ADMIN;
         String accessToken = workWithJwt.generateAccessToken(UUID.randomUUID(), role);
 
@@ -64,8 +64,8 @@ public class FilterTest extends AbstractTest {
 
     @Test
     public void getCardInfo_WithIncorrectJWT_ReturnsForbidden () throws Exception {
-        UUID userId = createSomeUsersInDB(1).get(0);
-        Card card = addActualCardsToUser(userId).get(0);
+        UUID userId = createSomeUsersInDB(1).getFirst();
+        Card card = addActualCardsToUser(userId).getFirst();
         Role role = Role.ADMIN;
         String accessToken = "12345";
 

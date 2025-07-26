@@ -1,7 +1,6 @@
 package com.example.bankcards.controller.api;
 
 import com.example.bankcards.dto.request.LoginRequestDto;
-import com.example.bankcards.dto.request.UserFilterRequestDto;
 import com.example.bankcards.dto.request.UserRequestDto;
 import com.example.bankcards.dto.response.JwtResponseDto;
 import com.example.bankcards.dto.response.UserResponseDto;

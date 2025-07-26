@@ -66,7 +66,6 @@ public class FilterTest extends AbstractTest {
     public void getCardInfo_WithIncorrectJWT_ReturnsForbidden () throws Exception {
         UUID userId = createSomeUsersInDB(1).getFirst();
         Card card = addActualCardsToUser(userId).getFirst();
-        Role role = Role.ADMIN;
         String accessToken = "12345";
 
         mvc.perform(get("/api/v1/card/" + card.getId())

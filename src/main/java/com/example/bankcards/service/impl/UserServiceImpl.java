@@ -1,6 +1,5 @@
 package com.example.bankcards.service.impl;
 
-import com.example.bankcards.dto.request.UserFilterRequestDto;
 import com.example.bankcards.dto.response.UserResponseDto;
 import com.example.bankcards.exception.UserNotFoundException;
 import com.example.bankcards.mapper.UserMapper;

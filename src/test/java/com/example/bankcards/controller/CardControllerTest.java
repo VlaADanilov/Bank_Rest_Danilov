@@ -45,7 +45,7 @@ public class CardControllerTest extends AbstractTest {
     @Test
     public void getById_WithMyCardId_ReturnsCorrectInformation() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
-        String result = mvc.perform(get("/api/v1/card/" + cards.get(0).getId()))
+        String result = mvc.perform(get("/api/v1/card/" + cards.getFirst().getId()))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         CardHugeResponseDto cardHugeResponseDto = objectMapper.readValue(result, CardHugeResponseDto.class);
@@ -57,7 +57,7 @@ public class CardControllerTest extends AbstractTest {
     public void getById_WithNotMyCardId_ReturnsForbidden() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
         authentificateAsUser(UUID.randomUUID());
-        mvc.perform(get("/api/v1/card/" + cards.get(0).getId()))
+        mvc.perform(get("/api/v1/card/" + cards.getFirst().getId()))
                 .andExpect(status().isForbidden());
     }
 
@@ -71,21 +71,21 @@ public class CardControllerTest extends AbstractTest {
     public void getById_WithNotMyCardIdButMyRoleIsAdmin_ReturnsCorrectInformation() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
         authentificateAsAdmin(UUID.randomUUID());
-        mvc.perform(get("/api/v1/card/" + cards.get(0).getId()))
+        mvc.perform(get("/api/v1/card/" + cards.getFirst().getId()))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void requestToBlock_WithMyCardId_ReturnsOkAndAddRequestToBlockToDB() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
-        String result = mvc.perform(post("/api/v1/card/block/" + cards.get(0).getId()))
+        String result = mvc.perform(post("/api/v1/card/block/" + cards.getFirst().getId()))
                 .andExpect(status().isOk())
                 .andReturn().getResponse().getContentAsString();
         UUID requestToBlockId = UUID.fromString(result.replaceAll("\"", ""));
 
         Optional<RequestToBlock> byId = blockRepository.findById(requestToBlockId);
         assertTrue(byId.isPresent());
-        assertEquals(cards.get(0).getId(), byId.get().getCard().getId());
+        assertEquals(cards.getFirst().getId(), byId.get().getCard().getId());
     }
 
     @Test
@@ -98,7 +98,7 @@ public class CardControllerTest extends AbstractTest {
     public void requestToBlock_WithNotMyCardId_ReturnsForbidden() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
         authentificateAsUser(UUID.randomUUID());
-        mvc.perform(post("/api/v1/card/block/" + cards.get(0).getId()))
+        mvc.perform(post("/api/v1/card/block/" + cards.getFirst().getId()))
                 .andExpect(status().isForbidden());
     }
 
@@ -106,10 +106,10 @@ public class CardControllerTest extends AbstractTest {
     public void deleteCard_WithMyCardId_ReturnsOkAndDeletedCardInDB() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
 
-        mvc.perform(delete("/api/v1/card/" + cards.get(0).getId()))
+        mvc.perform(delete("/api/v1/card/" + cards.getFirst().getId()))
                 .andExpect(status().isOk());
 
-        assertFalse(blockRepository.existsById(cards.get(0).getId()));
+        assertFalse(blockRepository.existsById(cards.getFirst().getId()));
 
     }
 
@@ -117,10 +117,10 @@ public class CardControllerTest extends AbstractTest {
     public void deleteCard_WithNotMyCardId_ReturnsForbiddenAndNotDeletedCardFromDB() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
         authentificateAsUser();
-        mvc.perform(delete("/api/v1/card/" + cards.get(0).getId()))
+        mvc.perform(delete("/api/v1/card/" + cards.getFirst().getId()))
                 .andExpect(status().isForbidden());
 
-        assertTrue(cardRepository.existsById(cards.get(0).getId()));
+        assertTrue(cardRepository.existsById(cards.getFirst().getId()));
     }
 
     @Test
@@ -133,10 +133,10 @@ public class CardControllerTest extends AbstractTest {
     public void deleteCard_WithNotMyCardIdButMyRoleIsAdmin_ReturnsOkAndDeletedCardFromDB() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
         authentificateAsAdmin();
-        mvc.perform(delete("/api/v1/card/" + cards.get(0).getId()))
+        mvc.perform(delete("/api/v1/card/" + cards.getFirst().getId()))
                 .andExpect(status().isOk());
 
-        assertFalse(blockRepository.existsById(cards.get(0).getId()));
+        assertFalse(blockRepository.existsById(cards.getFirst().getId()));
     }
 
     @Test
@@ -200,7 +200,7 @@ public class CardControllerTest extends AbstractTest {
     @Test
     public void transfer_WithMyCards_ReturnsOkAndMoneyTransfered() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
-        Card fromCard = cards.get(0);
+        Card fromCard = cards.getFirst();
         Card toCard = cards.get(1);
         int transferedMoney = 500;
         Integer fromCardStartBalance = fromCard.getBalance();
@@ -224,7 +224,7 @@ public class CardControllerTest extends AbstractTest {
     @Test
     public void transfer_WithMyCardsButHaventMoney_ReturnsIAmATeapot() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
-        Card fromCard = cards.get(0);
+        Card fromCard = cards.getFirst();
         Card toCard = cards.get(1);
         int transferedMoney = 5000;
         Integer fromCardStartBalance = fromCard.getBalance();
@@ -248,7 +248,7 @@ public class CardControllerTest extends AbstractTest {
     @Test
     public void transfer_WithMyCardsButOneCardNotExists_ReturnsNotFound() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
-        Card fromCard = cards.get(0);
+        Card fromCard = cards.getFirst();
         int transferedMoney = 500;
         Integer fromCardStartBalance = fromCard.getBalance();
 
@@ -269,8 +269,8 @@ public class CardControllerTest extends AbstractTest {
     public void transfer_WithMyCardsButOneCardBlocked_ReturnsIAmATeapot() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
         List<Card> cards1 = addBlockedCardsToUser(userId);
-        Card fromCard = cards.get(0);
-        Card toCard = cards1.get(0);
+        Card fromCard = cards.getFirst();
+        Card toCard = cards1.getFirst();
         int transferedMoney = 500;
         Integer fromCardStartBalance = fromCard.getBalance();
         Integer toCardStartBalance = toCard.getBalance();
@@ -294,8 +294,8 @@ public class CardControllerTest extends AbstractTest {
     public void transfer_WithMyCardsButOneCardExpired_ReturnsIAmATeapot() throws Exception {
         List<Card> cards = addActualCardsToUser(userId);
         List<Card> cards1 = addExpiresCardsToUser(userId);
-        Card fromCard = cards.get(0);
-        Card toCard = cards1.get(0);
+        Card fromCard = cards.getFirst();
+        Card toCard = cards1.getFirst();
         int transferedMoney = 500;
         Integer fromCardStartBalance = fromCard.getBalance();
         Integer toCardStartBalance = toCard.getBalance();
@@ -320,7 +320,7 @@ public class CardControllerTest extends AbstractTest {
         List<Card> cards = addActualCardsToUser(userId);
 
 
-        Card fromCard = cards.get(0);
+        Card fromCard = cards.getFirst();
         Card toCard = getOtherUserCard();
         int transferedMoney = 500;
         Integer fromCardStartBalance = fromCard.getBalance();
@@ -342,8 +342,8 @@ public class CardControllerTest extends AbstractTest {
     }
 
     private Card getOtherUserCard() {
-        UUID someUserInDB = createSomeUsersInDB(1, "code").get(0);
+        UUID someUserInDB = createSomeUsersInDB(1, "code").getFirst();
         List<Card> cards = addActualCardsToUser(someUserInDB);
-        return cards.get(0);
+        return cards.getFirst();
     }
 }

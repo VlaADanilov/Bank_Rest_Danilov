@@ -24,8 +24,8 @@ public class UserController implements UserApi {
 
     @Override
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public Page<UserResponseDto> getUsers(int page, int size, UserFilterRequestDto filter) {
-        return userService.getUsers(PageRequest.of(page,size), filter);
+    public Page<UserResponseDto> getUsers(int page, int size, String partOfUsername) {
+        return userService.getUsers(PageRequest.of(page,size), partOfUsername);
     }
 
     @Override

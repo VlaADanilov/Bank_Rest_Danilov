@@ -118,6 +118,7 @@ public class CardServiceImpl implements CardService {
         Card card = cardRepository.findById(cardId)
                 .orElseThrow(() -> new CardNotFoundException(cardId));
         card.setStatus(CardStatus.ACTIVE);
+        card.setExpiryDate(expiryDate);
         cardRepository.save(card);
     }
 

@@ -1,7 +1,8 @@
-package com.example.bankcards.util;
+package com.example.bankcards.service;
 
 import com.example.bankcards.config.property.MySecurityProperty;
 import com.example.bankcards.entity.enums.Role;
+import com.example.bankcards.util.WorkWithJwt;
 import io.jsonwebtoken.Claims;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

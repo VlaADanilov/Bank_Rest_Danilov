@@ -28,14 +28,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Page<UserResponseDto> getUsers(PageRequest of, UserFilterRequestDto filter) {
-        if (filter == null || filter.partOfUsername() == null || filter.partOfUsername().isEmpty()) {
+    public Page<UserResponseDto> getUsers(PageRequest of, String partOfUsername) {
+        if (partOfUsername == null || partOfUsername.isEmpty()) {
             return userRepository
                     .findAll(of).map(userMapper::toResponseDto);
         } else {
             return userRepository
                     .findByUsernameLikeIgnoreCase(
-                            "%" + filter.partOfUsername().toLowerCase() + "%", of)
+                            "%" + partOfUsername.toLowerCase() + "%", of)
                     .map(userMapper::toResponseDto);
         }
     }

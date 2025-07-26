@@ -1,11 +1,14 @@
 package com.example.bankcards;
 
 import com.example.bankcards.entity.Card;
+import com.example.bankcards.entity.RequestToBlock;
 import com.example.bankcards.entity.User;
 import com.example.bankcards.entity.enums.CardStatus;
 import com.example.bankcards.repository.BlockRepository;
 import com.example.bankcards.repository.CardRepository;
 import com.example.bankcards.repository.UserRepository;
+import com.example.bankcards.util.UserReturner;
+import com.example.bankcards.util.WorkWithJwt;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -20,7 +23,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 @AutoConfigureMockMvc
@@ -44,6 +46,12 @@ public class AbstractTest {
     protected ObjectMapper objectMapper;
     @Autowired
     protected PasswordEncoder passwordEncoder;
+
+    @Autowired
+    protected UserReturner userReturner;
+
+    @Autowired
+    protected WorkWithJwt workWithJwt;
 
     protected UUID userId;
 
@@ -146,6 +154,12 @@ public class AbstractTest {
 
     protected List<CardStatus> getAllCardStatuses() {
         return List.of(CardStatus.ACTIVE, CardStatus.BLOCKED, CardStatus.EXPIRED);
+    }
+
+    protected RequestToBlock createRequestToBlock(UUID cardId) {
+        RequestToBlock build = RequestToBlock.builder().card(cardRepository.getReferenceById(cardId)).build();
+        blockRepository.save(build);
+        return build;
     }
 }
 

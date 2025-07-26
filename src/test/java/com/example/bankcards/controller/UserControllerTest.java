@@ -104,7 +104,7 @@ public class UserControllerTest extends AbstractTest {
         UUID individual = saveUserToDB("Vlad", "1234");
 
         Page<UserResponseDto> users =
-                userController.getUsers(0, 5, new UserFilterRequestDto("Vla"));
+                userController.getUsers(0, 5, "Vla");
 
         assertEquals(1, users.getContent().size());
         assertEquals(individual, users.getContent().get(0).id());

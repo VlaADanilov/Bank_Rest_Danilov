@@ -40,7 +40,7 @@ public interface UserApi {
     Page<UserResponseDto> getUsers(
             @Min(0) @RequestParam(defaultValue = "0") int page,
             @Min(1) @RequestParam(defaultValue = "10") int size,
-            UserFilterRequestDto filter
+            @RequestParam(value = "partOfUsername", required = false) String partOfUsername
     );
 
     @DeleteMapping("/{id}")

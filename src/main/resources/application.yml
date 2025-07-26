@@ -1,4 +1,6 @@
 app:
+  scheduler:
+    enabled: true
   security:
 #    В миллисекундах
     expiration: 60000000

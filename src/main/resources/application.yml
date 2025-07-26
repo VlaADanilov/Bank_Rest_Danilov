@@ -1,3 +1,21 @@
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: root
+    url: jdbc:postgresql://db:5432/bank_rest_danilov
+  jpa:
+    hibernate:
+      ddl-auto: validate
+logging:
+  file:
+    name: logs/myapp.log
+    path: logs
+  level:
+    root: INFO
+server:
+  port: 8080
+
 app:
   scheduler:
     enabled: true
@@ -43,23 +61,4 @@ app:
   pQIDAQAB
   -----END PUBLIC KEY-----"
 
-#Что нужно сделать:
-#  - Указать настройки подключения к базе данных.
-#  - Указать порт приложения.
-#  - Настроить параметры безопасности и JWT.
-#  - Включить Swagger UI.
-spring:
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: root
-    url: jdbc:postgresql://db:5432/bank_rest_danilov
-  jpa:
-    hibernate:
-      ddl-auto: validate
-logging:
-  file:
-    name: logs/myapp.log
-    path: logs
-  level:
-    root: INFO
+

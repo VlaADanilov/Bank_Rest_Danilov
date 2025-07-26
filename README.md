@@ -25,8 +25,8 @@ docker-compose up --build</p>
 <p>Проверяет на валидность токена самописный филтьтр для Spring Security.</p>
 <p><strong>Я создал аккаунты для вас: 
 1)Role: ADMIN username: admin password: 1234
-1)Role: ADMIN username: 1234 password: 1234
-1)Role: ADMIN username: test password: 1234</strong></p>
+1)Role: USER username: 1234 password: 1234
+1)Role: USER username: test password: 1234</strong></p>
 
 <h2>✅ Пройдёмся по возможностям </h2>
 <strong>Администратор:</strong>
